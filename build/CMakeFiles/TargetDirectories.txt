@@ -1,0 +1,3 @@
+/home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/main.dir
+/home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/edit_cache.dir
+/home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/rebuild_cache.dir
