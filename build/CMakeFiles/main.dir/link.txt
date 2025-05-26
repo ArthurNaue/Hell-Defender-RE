@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/main.dir/src/color_palette/color_palette.c.o CMakeFiles/main.dir/src/enemy/enemy.c.o CMakeFiles/main.dir/src/main.c.o CMakeFiles/main.dir/src/tower/tower.c.o -o main  /usr/local/lib/libraylib.a -lm 
