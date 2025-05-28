@@ -1,23 +1,23 @@
 # 🎮 Hell Defender RE
 
-Projeto retrabalhado do jogo Hell Defender, feito em C usando a [Raylib](https://www.raylib.com/).
+A reworked version of the Hell Defender game, written in C using [Raylib](https://www.raylib.com/).
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 Hell-Defender-RE/
-├── assets/             # Recursos do jogo (texturas, sons, etc)
-├── include/            # Headers (.h)
-├── src/                # Código-fonte principal (.c)
+├── assets/             # Game assets (textures, sounds, etc.)
+├── include/            # Header files (.h)
+├── src/                # Main source code (.c)
 ├── libraries/
-│   └── raylib/         # Raylib como subdiretório (local)
-├── CMakeLists.txt      # Script de build com CMake
-└── README.md           # Este arquivo
+│   └── raylib/         # Raylib as a local subdirectory
+├── CMakeLists.txt      # Build script using CMake
+└── README.md           # This file
 ```
 
-## 🧩 Pré-requisitos
+## 🧩 Prerequisites
 
-Certifique-se de ter os seguintes pacotes instalados:
+Make sure you have the following packages installed:
 
 ### 🐧 Linux (Ubuntu/Debian)
 
@@ -35,30 +35,30 @@ brew install cmake
 ### 🪟 Windows
 
 ```bash
-- Instale:
-  - [MinGW-w64](https://www.mingw-w64.org/) ou MSYS2
-  - [CMake](https://cmake.org/download/)
-- Adicione o compilador ao PATH
+- Install:
+  - MINGW or MSYS2
+  - CMAKE
+- Make sure the compiler is added to your PATH
 ```
 
-## 🚀 Como clonar o projeto corretamente
+## 🚀 How to Properly Clone the Project
 
-Esse repositório usa a **Raylib como submódulo Git**, então você deve clonar com a flag `--recursive`:
+This repository uses **Raylib as a Git submodule**, so you should clone it with the `--recursive` flag:
 
 ```bash
 git clone --recursive https://github.com/ArthurNaue/Hell-Defender-RE.git
 cd Hell-Defender-RE
 ```
 
-Se você já clonou sem `--recursive`, execute:
+If you already cloned it without `--recursive`, run:
 
 ```bash
 git submodule update --init --recursive
 ```
 
-## 🛠️ Como compilar
+## 🛠️ How to Build
 
-### 🔧 Usando CMake no terminal:
+### 🔧 Using CMake in the terminal:
 
 ```bash
 mkdir build
@@ -67,22 +67,22 @@ cmake ..
 make
 ```
 
-## 🎮 Como rodar o jogo
+## 🎮 How to Run the Game
 
-Após compilar, dentro da pasta `build`, execute:
+After building, inside the `build` folder, run:
 
 ```bash
 ./HellDefender
 ```
 
-No Windows, o executável será `HellDefender.exe`.
+On Windows, the executable will be `HellDefender.exe`.
 
-## 📝 Observações
+## 📝 Notes
 
-- A pasta `assets/` será copiada automaticamente para o diretório do executável.
-- O projeto foi configurado para **usar a Raylib localmente**, então **não é necessário instalar a Raylib separadamente**.
+- The `assets/` folder will be automatically copied to the executable directory.
+- The project is configured to **use Raylib locally**, so there's **no need to install Raylib separately**.
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
 Arthur Naue  
 [GitHub](https://github.com/ArthurNaue)
