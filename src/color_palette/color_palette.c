@@ -1,5 +1,6 @@
 #include "color_palette/color_palette.h"
 
+//DEFINE COLORS RGBA
 const Color PDARKRED = {27, 3, 38, 255};
 const Color PRED = {122, 28, 75, 255};
 const Color PORANGE = {186, 80, 68, 255};

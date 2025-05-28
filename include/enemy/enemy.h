@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "tower/tower.h"
 
+//DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy {
     Vector2 pos;
     float speed;
@@ -14,6 +15,7 @@ typedef struct Enemy {
     Texture2D tex;
 } Enemy;
 
+//DEFINES THE ENEMY FUNCTIONS
 void InitEnemy(Enemy *enemy);
 void DrawEnemy(Enemy enemy);
 void MoveEnemy(Enemy *enemy, Tower *tower);
