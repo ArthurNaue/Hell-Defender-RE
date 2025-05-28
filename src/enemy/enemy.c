@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <math.h>
 #include "enemy/enemy.h"
 #include "window_config/window_config.h"
 
@@ -42,14 +43,15 @@ void DrawEnemy(Enemy enemy)
 //FUNCTION THAT MOVES THE ENEMY
 void MoveEnemy(Enemy *enemy, Tower *tower)
 {
-	//GET THE ENEMY TRUE MIDDLE POSITION
-	Vector2 truePos = {enemy->pos.x - (enemy->size/2), enemy->pos.y - (enemy->size/2)};
+	//GET THE DISTANCE BETWEEN THE ENEMY AND THE TOWER
+	float distanceX = tower->pos.x - enemy->pos.x;
+	float distanceY = tower->pos.y - enemy->pos.y;
+	//APPLY PITAGORAS TO PREVENT FASTER WALKING IN DIAGONALS
+	float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
 
-	//CHANGES THE ENEMY POSITION BASED ON WHERE THE PLAYER IS
-	if(truePos.x > tower->pos.x){enemy->pos.x -= enemy->speed;}
-	if(truePos.x < tower->pos.x){enemy->pos.x += enemy->speed;}
-	if(truePos.y > tower->pos.y){enemy->pos.y -= enemy->speed;}
-	if(truePos.y < tower->pos.y){enemy->pos.y += enemy->speed;}
+	//ADDS THE DIRECTION THE ENEMY SHOULD FOLLOW TO THE ENEMYS POSITION
+	enemy->pos.x += (distanceX / distance);
+	enemy->pos.y += (distanceY / distance);
 
 	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 	UpdateEnemyRec(enemy);
