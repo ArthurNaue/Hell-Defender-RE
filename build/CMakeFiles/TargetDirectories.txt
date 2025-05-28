@@ -1,4 +1,5 @@
 /home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/HellDefender.dir
+/home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/run.dir
 /home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/package.dir
 /home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/package_source.dir
 /home/aluno/Projects/Hell-Defender-RE/build/CMakeFiles/edit_cache.dir
