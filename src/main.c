@@ -3,6 +3,7 @@
 #include "raygui/raygui.h"
 #include "window_config/window_config.h"
 #include "color_palette/color_palette.h"
+#include "points/points.h"
 #include "screens/screens.h"
 #include "tower/tower.h"
 #include "enemy/enemy.h"
@@ -53,13 +54,19 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
-				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE;}
+				//ATUALIZA O TEXTO DOS PONTOS
+				sprintf(pointsText, "Score: %d", points);
+
+				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; points=0;}
 
 				if(enemy)
 				{
 					//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMY
 					MoveEnemy(enemy);	
-					if(CheckCollisionPointRec(GetMousePosition(), enemy->rec)){if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){KillEnemy(enemy); free(enemy); enemy=NULL;}}
+					if(CheckCollisionPointRec(GetMousePosition(), enemy->rec))
+					{
+						if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){KillEnemy(enemy); free(enemy); enemy=NULL; points++;}
+					}
 				}
 				else
 				{
@@ -71,10 +78,11 @@ int main(void)
         			BeginDrawing();
             			ClearBackground(PORANGE);
             			DrawTower(tower);
+				DrawText(pointsText, 0, 0, 24, PDARKRED);
         			EndDrawing();
 				
 				//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
-				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE;}}
+				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; points = 0;}}
 
 			       	break;
 			} 
