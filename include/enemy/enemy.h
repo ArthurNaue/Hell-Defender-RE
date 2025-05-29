@@ -4,6 +4,8 @@
 #include "raylib.h"
 #include "tower/tower.h"
 
+#define ENEMY_SIZE 64
+
 //DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy {
     Vector2 pos;

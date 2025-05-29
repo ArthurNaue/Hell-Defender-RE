@@ -2,7 +2,7 @@
 #define TOWER_H
 
 //DEFINES THE TOWER SIZE
-#define TOWER_SIZE 64
+#define TOWER_SIZE 128
 
 #include "raylib.h"
 

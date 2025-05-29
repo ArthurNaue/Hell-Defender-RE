@@ -26,7 +26,7 @@ void InitEnemy(Enemy *enemy)
 
 	//DEFINES ENEMY PARAMETERS
     	enemy->speed = 2;
-    	enemy->size = 25;
+    	enemy->size = ENEMY_SIZE;
     	enemy->color = RED;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
     	enemy->img = LoadImage("assets/images/enemies/ghost/ghost.png");
