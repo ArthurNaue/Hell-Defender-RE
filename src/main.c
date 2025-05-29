@@ -18,6 +18,9 @@ int main(void)
 	SetTargetFPS(60);
 	SetExitKey(KEY_NULL);
 
+	//INITIALIZE THE POINTS
+	InitPoints();
+
 	//CREATE GAME OBJECTS
 	Tower tower;
 	InitTower(&tower);
@@ -61,7 +64,7 @@ int main(void)
 				//ATUALIZA O TEXTO DOS PONTOS
 				sprintf(pointsText, "Score: %d", points);
 
-				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; maxPoints=points; points=0;}
+				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 
 				if(enemy)
 				{
@@ -83,10 +86,11 @@ int main(void)
             			ClearBackground(PORANGE);
             			DrawTower(tower);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
+				if(enemy){DrawEnemy(*enemy); 
         			EndDrawing();
 				
 				//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
-				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; maxPoints=points;  points = 0;}}
+				if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}}
 
 			       	break;
 			} 
