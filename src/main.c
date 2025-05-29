@@ -31,9 +31,13 @@ int main(void)
 		{
 			case TITLE:
 			{
+				//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
+				sprintf(maxPointsText, "Max Score: %d", maxPoints);
+
 				BeginDrawing();
             			ClearBackground(PORANGE);
 				DrawText("HELL DEFENDER RE", SCREEN_WIDTH/2 - ((SCREEN_WIDTH/2)/2), SCREEN_HEIGHT/6, 24, PDARKRED);
+				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
 				
 				//VERIFIES IF GUI BUTTON WAS PRESSED
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - ((SCREEN_WIDTH/2)/2), SCREEN_HEIGHT/2 - ((SCREEN_HEIGHT/2)/2), SCREEN_WIDTH/2, SCREEN_HEIGHT/2}, "PLAY"))
@@ -57,7 +61,7 @@ int main(void)
 				//ATUALIZA O TEXTO DOS PONTOS
 				sprintf(pointsText, "Score: %d", points);
 
-				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; points=0;}
+				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; maxPoints=points; points=0;}
 
 				if(enemy)
 				{
@@ -82,7 +86,7 @@ int main(void)
         			EndDrawing();
 				
 				//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
-				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; points = 0;}}
+				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; maxPoints=points;  points = 0;}}
 
 			       	break;
 			} 
