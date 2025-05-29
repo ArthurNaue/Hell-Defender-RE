@@ -17,13 +17,13 @@ void InitEnemy(Enemy *enemy)
 	{
 		//DEFINES ENEMY POSITION BASED ON THE GENERATED NUMBER
 		case 1:{enemy->pos = (Vector2){0, 0}; break;}
-		case 2:{enemy->pos = (Vector2){0, SCREEN_HEIGHT};break;}
-		case 3:{enemy->pos = (Vector2){0, SCREEN_HEIGHT/2};break;}
-		case 4:{enemy->pos = (Vector2){SCREEN_WIDTH, 0};break;}
+		case 2:{enemy->pos = (Vector2){0, SCREEN_HEIGHT}; break;}
+		case 3:{enemy->pos = (Vector2){0, SCREEN_HEIGHT/2}; break;}
+		case 4:{enemy->pos = (Vector2){SCREEN_WIDTH, 0}; break;}
 		case 5:{enemy->pos = (Vector2){SCREEN_WIDTH/2, 0}; break;}
-		case 6:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT/2};break;}
-		case 7:{enemy->pos = (Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT};break;}
-		case 8:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT};break;}
+		case 6:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT/2}; break;}
+		case 7:{enemy->pos = (Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT}; break;}
+		case 8:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT}; break;}
 		default: break;
     	}
 
@@ -33,13 +33,12 @@ void InitEnemy(Enemy *enemy)
 	//VERIFIES WHICH ENEMY WAS CHOSEN
 	switch(iChosenEnemy)
 	{
-		case 1:{enemy->img = LoadImage("assets/images/enemies/ghost.png"); break;}
-		case 2:{enemy->img = LoadImage("assets/images/enemies/skeleton.png"); break;}
+		case 1:{enemy->img = LoadImage("assets/images/enemies/ghost.png"); enemy->health=1; enemy->speed=2;  break;}
+		case 2:{enemy->img = LoadImage("assets/images/enemies/skeleton.png"); enemy->health=2; enemy->speed=1;  break;}
 	}
 
 	//DEFINES ENEMY PARAMETERS
     	enemy->size = ENEMY_SIZE;
-	enemy->speed = 2;
     	enemy->color = RED;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
     	enemy->tex = LoadTextureFromImage(enemy->img);
@@ -89,7 +88,14 @@ void UpdateEnemyRec(Enemy *enemy)
 	enemy->rec.y = enemy->pos.y;
 }
 
-//FUNCTIONS THAT KILLS THE ENEMY
+//FUNCTION THAT DAMAGES THE ENEMY
+void DamageEnemy(Enemy *enemy)
+{
+	//REDUCES PLAYER HEALTH AND KILLS ENEMY IF BELLOW ZERO
+	enemy->health -= 1;
+}
+
+//FUNCTIONS THAT KILL THE ENEMY
 void KillEnemy(Enemy *enemy)
 {
 	UnloadImage(enemy->img);

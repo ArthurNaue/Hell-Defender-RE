@@ -72,7 +72,17 @@ int main(void)
 					MoveEnemy(enemy);	
 					if(CheckCollisionPointRec(GetMousePosition(), enemy->rec))
 					{
-						if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){KillEnemy(enemy); free(enemy); enemy=NULL; points++;}
+						if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+						{
+							DamageEnemy(enemy);
+							if(enemy->health<1)
+							{
+								KillEnemy(enemy);
+								free(enemy);
+								enemy = NULL;
+								points++;
+							}
+						}
 					}
 				}
 				else

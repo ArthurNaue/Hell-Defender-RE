@@ -12,13 +12,14 @@ extern int speedMultiplier;
 
 //DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy {
-    Vector2 pos;
-    float speed;
-    float size;
-    Color color;
-    Rectangle rec;
-    Image img;
-    Texture2D tex;
+	int health;
+	Vector2 pos;
+	float speed;
+	float size;
+	Color color;
+	Rectangle rec;
+	Image img;
+	Texture2D tex;
 } Enemy;
 
 //DEFINES THE ENEMY FUNCTIONS
@@ -27,6 +28,7 @@ void DrawEnemy(Enemy enemy);
 void UpdateEnemySpeed(Enemy *enemy);
 void MoveEnemy(Enemy *enemy);
 void UpdateEnemyRec(Enemy *enemy);
+void DamageEnemy(Enemy *enemy);
 void KillEnemy(Enemy *enemy);
 
 #endif
