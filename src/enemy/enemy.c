@@ -24,12 +24,21 @@ void InitEnemy(Enemy *enemy)
 		default: break;
     	}
 
+	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
+	int iChosenEnemy = (rand() % ENEMY_NUMBER) + 1;
+
+	//VERIFIES WHICH ENEMY WAS CHOSEN
+	switch(iChosenEnemy)
+	{
+		case 1:{enemy->img = LoadImage("assets/images/enemies/ghost.png"); break;}
+		case 2:{enemy->img = LoadImage("assets/images/enemies/skeleton.png"); break;}
+	}
+
 	//DEFINES ENEMY PARAMETERS
     	enemy->speed = 2;
     	enemy->size = ENEMY_SIZE;
     	enemy->color = RED;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
-    	enemy->img = LoadImage("assets/images/enemies/ghost/ghost.png");
     	enemy->tex = LoadTextureFromImage(enemy->img);
 }
 
@@ -41,11 +50,14 @@ void DrawEnemy(Enemy enemy)
 }
 
 //FUNCTION THAT MOVES THE ENEMY
-void MoveEnemy(Enemy *enemy, Tower *tower)
+void MoveEnemy(Enemy *enemy)
 {
+	//CREATES THE POSITION OF THE SCREEN CENTER
+	Vector2 screenCenter = {SCREEN_WIDTH/2, SCREEN_HEIGHT/2};
+
 	//GET THE DISTANCE BETWEEN THE ENEMY AND THE TOWER
-	float distanceX = tower->pos.x - enemy->pos.x;
-	float distanceY = tower->pos.y - enemy->pos.y;
+	float distanceX = screenCenter.x  - enemy->pos.x;
+	float distanceY = screenCenter.y - enemy->pos.y;
 	//APPLY PITAGORAS TO PREVENT FASTER WALKING IN DIAGONALS
 	float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
 
@@ -62,4 +74,11 @@ void UpdateEnemyRec(Enemy *enemy)
 {
 	enemy->rec.x = enemy->pos.x;
 	enemy->rec.y = enemy->pos.y;
+}
+
+//FUNCTIONS THAT KILLS THE ENEMY
+void KillEnemy(Enemy *enemy)
+{
+	UnloadImage(enemy->img);
+	UnloadTexture(enemy->tex);
 }

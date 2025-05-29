@@ -58,8 +58,8 @@ int main(void)
 				if(enemy)
 				{
 					//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMY
-					MoveEnemy(enemy, &tower);			
-					if(CheckCollisionPointRec(GetMousePosition(), enemy->rec)){if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){free(enemy); enemy=NULL;}}
+					MoveEnemy(enemy);	
+					if(CheckCollisionPointRec(GetMousePosition(), enemy->rec)){if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){KillEnemy(enemy); free(enemy); enemy=NULL;}}
 				}
 				else
 				{
@@ -74,7 +74,7 @@ int main(void)
         			EndDrawing();
 				
 				//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
-				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){currentScreen=TITLE;}}
+				if(enemy){DrawEnemy(*enemy); if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE;}}
 
 			       	break;
 			} 

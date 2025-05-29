@@ -5,6 +5,7 @@
 #include "tower/tower.h"
 
 #define ENEMY_SIZE 64
+#define ENEMY_NUMBER 2
 
 //DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy {
@@ -20,7 +21,8 @@ typedef struct Enemy {
 //DEFINES THE ENEMY FUNCTIONS
 void InitEnemy(Enemy *enemy);
 void DrawEnemy(Enemy enemy);
-void MoveEnemy(Enemy *enemy, Tower *tower);
+void MoveEnemy(Enemy *enemy);
 void UpdateEnemyRec(Enemy *enemy);
+void KillEnemy(Enemy *enemy);
 
 #endif
