@@ -2,6 +2,9 @@
 #include <math.h>
 #include "enemy/enemy.h"
 #include "window_config/window_config.h"
+#include "points/points.h"
+
+int speedMultiplier;
 
 //FUNCTION THAT INITIALIZES ENEMY
 void InitEnemy(Enemy *enemy) 
@@ -35,11 +38,13 @@ void InitEnemy(Enemy *enemy)
 	}
 
 	//DEFINES ENEMY PARAMETERS
-    	enemy->speed = 2;
     	enemy->size = ENEMY_SIZE;
+	enemy->speed = 2;
     	enemy->color = RED;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
     	enemy->tex = LoadTextureFromImage(enemy->img);
+
+	UpdateEnemySpeed(enemy);
 }
 
 //FUNCTION THAT DRAWS THE ENEMY
@@ -47,6 +52,14 @@ void DrawEnemy(Enemy enemy)
 {
 	//DRAW THE ENEMY TEXTURE
 	DrawTextureV(enemy.tex, enemy.pos, WHITE);
+}
+
+//FUNCTION THAT UPDATES THE ENEMY SPEED
+void UpdateEnemySpeed(Enemy *enemy)
+{
+	speedMultiplier = 1 + (points/100);
+	//MULTIPLY THE ENEMY SPEED BY THE NUMBER OF POINTS
+	enemy->speed *= speedMultiplier;
 }
 
 //FUNCTION THAT MOVES THE ENEMY
@@ -62,8 +75,8 @@ void MoveEnemy(Enemy *enemy)
 	float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
 
 	//ADDS THE DIRECTION THE ENEMY SHOULD FOLLOW TO THE ENEMYS POSITION
-	enemy->pos.x += (distanceX / distance);
-	enemy->pos.y += (distanceY / distance);
+	enemy->pos.x += (distanceX / distance) * enemy->speed;
+	enemy->pos.y += (distanceY / distance) * enemy->speed;
 
 	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 	UpdateEnemyRec(enemy);
