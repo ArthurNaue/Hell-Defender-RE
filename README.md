@@ -23,7 +23,7 @@ Make sure you have the following packages installed:
 
 ```bash
 sudo apt update
-sudo apt install build-essential cmake libasound2-dev libpulse-dev libx11-dev libxcursor-dev libxrandr-dev libxi-dev libgl1-mesa-dev
+sudo apt install build-essential cmake libasound2-dev libpulse-dev libx11-dev libxcursor-dev libxrandr-dev libxi-dev libgl1-mesa-dev libxinerama-dev
 ```
 
 ### 🍎 macOS
