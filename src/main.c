@@ -68,7 +68,7 @@ int main(void)
 				//ATUALIZA O TEXTO DOS PONTOS
 				sprintf(pointsText, "Score: %d", points);
 
-				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; CheckAndUpdateMaxPoints();}
+				if(IsKeyPressed(KEY_ESCAPE)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 
 				//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMYMoveEnemy(enemy);
 				if(enemy){MoveEnemy(enemy);}

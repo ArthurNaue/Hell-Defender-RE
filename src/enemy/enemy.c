@@ -44,6 +44,8 @@ void InitEnemy(Enemy *enemy)
     	enemy->tex = LoadTextureFromImage(enemy->img);
 
 	UpdateEnemySpeed(enemy);
+
+	UnloadImage(enemy->img);
 }
 
 //FUNCTION THAT DRAWS THE ENEMY
@@ -98,6 +100,5 @@ void DamageEnemy(Enemy *enemy)
 //FUNCTIONS THAT KILL THE ENEMY
 void KillEnemy(Enemy *enemy)
 {
-	UnloadImage(enemy->img);
 	UnloadTexture(enemy->tex);
 }
