@@ -1,6 +1,6 @@
 # 🎮 Hell Defender RE
 
-A reworked version of the Hell Defender game, written in C using [Raylib](https://www.raylib.com/).
+A reworked version of the [Hell Defender](https://github.com/ArthurNaue/Hell-Defender) game, written in C using [Raylib](https://www.raylib.com/).
 
 ## 📁 Project Structure
 
