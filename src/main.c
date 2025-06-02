@@ -6,6 +6,7 @@
 #include "points/points.h"
 #include "screens/screens.h"
 #include "tower/tower.h"
+#include "tower/towerAttack/towerAttack.h"
 #include "enemy/enemy.h"
 
 //DEFINE GAME SCREENS ENUM
@@ -24,6 +25,9 @@ int main(void)
 	//CREATE GAME OBJECTS
 	Tower tower;
 	InitTower(&tower);
+	TowerAttack towerAttack;
+	InitTowerAttack(&towerAttack);
+
 	Enemy *enemy = malloc(sizeof(Enemy));
 	InitEnemy(enemy);
 
@@ -83,20 +87,21 @@ int main(void)
 				{
 					DrawEnemy(*enemy);
 					//VERIFIES IF TOWER ATTACK HITS ENEMY
-					if(CheckCollisionRecs(tower.attackRec, enemy->rec) && tower.isAttacking==1)
+					if(CheckCollisionRecs(towerAttack.rec, enemy->rec) && towerAttack.isAttacking==1)
 					{
 						DamageEnemy(enemy);
-						tower.isAttacking = 0;
+						towerAttack.isAttacking = 0;
 
 						if(enemy->health<1){KillEnemy(enemy); free(enemy); enemy=NULL; points++;}
 					}
 					//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
 					else if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
+					else{towerAttack.isAttacking=0;}
 				}
-				if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){TowerAttack(&tower);}
+				if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){Attack(&towerAttack);}
+				if(towerAttack.isAttacking==1){DrawTowerAttack(&towerAttack);}
         			EndDrawing();
 			
-				
 			       	break;
 			} 
 			default: break;
