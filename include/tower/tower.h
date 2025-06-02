@@ -13,6 +13,8 @@ typedef struct Tower {
     Color color;
     Rectangle rec;
     Rectangle attackRec;
+    Image attackImg;
+    Texture2D attackTex;
     int isAttacking;
     Image img;
     Texture2D tex;

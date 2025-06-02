@@ -10,10 +10,14 @@ void InitTower(Tower *tower)
 	tower->color = GREEN;
 	tower->rec = (Rectangle){tower->pos.x, tower->pos.y,  tower->size, tower->size};
 	tower->attackRec = (Rectangle){0, 0, 64, 64};
+	tower->attackImg = LoadImage("assets/images/tower/attack/towerAttack.png");
+	tower->attackTex = LoadTextureFromImage(tower->attackImg);
 	tower->isAttacking = 0;
 	tower->img = LoadImage("assets/images/tower/tower.png");
 	tower->tex = LoadTextureFromImage(tower->img);
+
 	UnloadImage(tower->img);
+	UnloadImage(tower->attackImg);
 }
 
 //FUNCTION TO DRAW TOWER
@@ -36,5 +40,5 @@ void TowerAttack(Tower *tower)
 	tower->attackRec.y = mousePosition.y - (tower->attackRec.height/2);
 
 	//DRAW ATTACK RECTANGLE TO SCREEN
-	DrawRectangleRec(tower->attackRec, WHITE);
+	DrawTextureV(tower->attackTex, (Vector2){tower->attackRec.x, tower->attackRec.y}, WHITE);
 }
