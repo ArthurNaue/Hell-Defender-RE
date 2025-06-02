@@ -12,6 +12,8 @@ typedef struct Tower {
     float size;
     Color color;
     Rectangle rec;
+    Rectangle attackRec;
+    int isAttacking;
     Image img;
     Texture2D tex;
 } Tower;
@@ -19,5 +21,6 @@ typedef struct Tower {
 //DEFINES THE TOWER FUNCTIONS
 void InitTower(Tower *tower);
 void DrawTower(Tower tower);
+void TowerAttack(Tower *tower);
 
 #endif

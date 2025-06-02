@@ -66,25 +66,8 @@ int main(void)
 
 				if(IsKeyPressed(KEY_ESCAPE)){currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 
-				if(enemy)
-				{
-					//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMY
-					MoveEnemy(enemy);	
-					if(CheckCollisionPointRec(GetMousePosition(), enemy->rec))
-					{
-						if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-						{
-							DamageEnemy(enemy);
-							if(enemy->health<1)
-							{
-								KillEnemy(enemy);
-								free(enemy);
-								enemy = NULL;
-								points++;
-							}
-						}
-					}
-				}
+				//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMYMoveEnemy(enemy);
+				if(enemy){MoveEnemy(enemy);}
 				else
 				{
 					//IF NO PLAYER EXISTS, CREATE ONE
@@ -96,12 +79,24 @@ int main(void)
             			ClearBackground(PORANGE);
             			DrawTower(tower);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
-				if(enemy){DrawEnemy(*enemy); 
-        			EndDrawing();
-				
-				//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
-				if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}}
+				if(enemy)
+				{
+					DrawEnemy(*enemy);
+					//VERIFIES IF TOWER ATTACK HITS ENEMY
+					if(CheckCollisionRecs(tower.attackRec, enemy->rec) && tower.isAttacking==1)
+					{
+						DamageEnemy(enemy);
+						tower.isAttacking = 0;
 
+						if(enemy->health<1){KillEnemy(enemy); free(enemy); enemy=NULL; points++;}
+					}
+					//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
+					else if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
+				}
+				if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){TowerAttack(&tower);}
+        			EndDrawing();
+			
+				
 			       	break;
 			} 
 			default: break;
