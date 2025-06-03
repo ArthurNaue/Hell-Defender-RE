@@ -2,9 +2,12 @@
 #define TOWERATTACK_H
 
 #define TOWERATTACK_SIZE 64
+#define TOWERATTACK_COOLDOWN 60
 
 #include "raylib.h"
 #include "tower/tower.h"
+
+extern char attackCooldownText[32];
 
 //DEFINES THE TOWER STRUCTURE
 typedef struct TowerAttack {
@@ -12,12 +15,14 @@ typedef struct TowerAttack {
     Rectangle rec;
     Image img;
     Texture2D tex;
+    int cooldown;
     int isAttacking;
 } TowerAttack;
 
 //DEFINES THE TOWER FUNCTIONS
 void InitTowerAttack(TowerAttack *towerAttack);
 void DrawTowerAttack(TowerAttack *towerAttack);
-void Attack(TowerAttack *towerAttack);
+void UpdateAttack(TowerAttack *towerAttack);
+void ResetAttackCooldown(TowerAttack *towerAttack);
 
 #endif

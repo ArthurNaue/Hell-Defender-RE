@@ -5,6 +5,7 @@
 #include "color_palette/color_palette.h"
 #include "points/points.h"
 #include "screens/screens.h"
+#include "dt/dt.h"
 #include "tower/tower.h"
 #include "tower/towerAttack/towerAttack.h"
 #include "enemy/enemy.h"
@@ -33,15 +34,23 @@ int main(void)
 
 	while (!WindowShouldClose())
 	{
+		UpdateDt();
+
+		//ATUALIZA O TEXTO DOS PONTOS
+		sprintf(pointsText, "Score: %d", points);
+		//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
+		sprintf(maxPointsText, "Max Score: %d", maxPoints);
+		//ATUALIZA O TEXTO DO COOLDOWN DO ATAQUE
+		sprintf(attackCooldownText, "Cooldown: %d", towerAttack.cooldown);
+
 		//VERIFIES CURRENT SCREEN
 		switch(currentScreen)
 		{
 			case TITLE:
 			{
-				//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
-				sprintf(maxPointsText, "Max Score: %d", maxPoints);
 
 				BeginDrawing();
+
             			ClearBackground(PORANGE);
 				DrawText("HELL DEFENDER RE", SCREEN_WIDTH/2 - ((SCREEN_WIDTH/2)/2), SCREEN_HEIGHT/6, 24, PDARKRED);
 				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
@@ -65,8 +74,8 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
-				//ATUALIZA O TEXTO DOS PONTOS
-				sprintf(pointsText, "Score: %d", points);
+				//UPDATES TOWER ATTACK POSITION AND COOLDOWN
+				UpdateAttack(&towerAttack);
 
 				if(IsKeyPressed(KEY_ESCAPE)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 
@@ -80,26 +89,34 @@ int main(void)
 				}
 
         			BeginDrawing();
+
             			ClearBackground(PORANGE);
             			DrawTower(tower);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
+				DrawText(attackCooldownText, 0, SCREEN_HEIGHT-24, 24, PDARKRED);
+
 				if(enemy)
 				{
 					DrawEnemy(*enemy);
 					//VERIFIES IF TOWER ATTACK HITS ENEMY
-					if(CheckCollisionRecs(towerAttack.rec, enemy->rec) && towerAttack.isAttacking==1)
+					if(CheckCollisionRecs(towerAttack.rec, enemy->rec) && towerAttack.isAttacking==1 && towerAttack.cooldown<=0)
 					{
 						DamageEnemy(enemy);
-						towerAttack.isAttacking = 0;
+						ResetAttackCooldown(&towerAttack);
 
-						if(enemy->health<1){KillEnemy(enemy); free(enemy); enemy=NULL; points++;}
+						if(enemy->health<1){free(enemy); enemy=NULL; points++;}
 					}
 					//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
 					else if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
-					else{towerAttack.isAttacking=0;}
 				}
-				if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){Attack(&towerAttack);}
+
+				//USE THE TOWER ATTACK IF PLAYER HOLDS M1
+				if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){towerAttack.isAttacking=1;}
+				else{towerAttack.isAttacking=0;}
+
+				//DRAW THE TOWER ATTAACK
 				if(towerAttack.isAttacking==1){DrawTowerAttack(&towerAttack);}
+
         			EndDrawing();
 			
 			       	break;
