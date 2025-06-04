@@ -35,8 +35,8 @@ void InitEnemy(Enemy *enemy)
 	//VERIFIES WHICH ENEMY WAS CHOSEN
 	switch(iChosenEnemy)
 	{
-		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 1, 1.0f); enemy->health=1; enemy->speed=2;  break;}
-		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 1, 1.0f); enemy->health=2; enemy->speed=1;  break;}
+		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=2;  break;}
+		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=1;  break;}
 	}
 
 	//DEFINES ENEMY PARAMETERS
@@ -81,7 +81,8 @@ void MoveEnemy(Enemy *enemy)
 
 	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 	UpdateEnemyRec(enemy);
-	
+
+	UpdateAnimatedSprite(&enemy->animSprite);
 	UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
 }
 
