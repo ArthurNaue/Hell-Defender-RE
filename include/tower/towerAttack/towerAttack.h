@@ -5,23 +5,24 @@
 #define TOWERATTACK_COOLDOWN 60
 
 #include "raylib.h"
+#include "animated_sprite/animated_sprite.h"
 #include "tower/tower.h"
 
 extern char attackCooldownText[32];
 
 //DEFINES THE TOWER STRUCTURE
-typedef struct TowerAttack {
+typedef struct TowerAttack 
+{
     float size;
     Rectangle rec;
-    Image img;
-    Texture2D tex;
+    AnimatedSprite animSprite;
     int cooldown;
     int isAttacking;
 } TowerAttack;
 
 //DEFINES THE TOWER FUNCTIONS
 void InitTowerAttack(TowerAttack *towerAttack);
-void DrawTowerAttack(TowerAttack *towerAttack);
+void DrawTowerAttack(TowerAttack towerAttack);
 void UpdateAttack(TowerAttack *towerAttack);
 void ResetAttackCooldown(TowerAttack *towerAttack);
 

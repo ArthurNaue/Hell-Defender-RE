@@ -30,6 +30,11 @@ void UpdateAnimatedSprite(AnimatedSprite *animatedSprite)
 	}
 }
 
+void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos)
+{
+	animatedSprite->pos = pos;
+}
+
 void DrawAnimatedSprite(AnimatedSprite animatedSprite)
 {
 	DrawTextureRec(animatedSprite.tex, animatedSprite.frameRec, animatedSprite.pos, WHITE);

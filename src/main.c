@@ -23,10 +23,6 @@ int main(void)
 
 	//INITIALIZE THE POINTS
 	InitPoints();
-
-	//CREATE GAME OBJECTS
-	AnimatedSprite teste;
-	InitAnimatedSprite(&teste);
 	
 	Tower tower;
 	InitTower(&tower);
@@ -78,7 +74,6 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
-				UpdateAnimatedSprite(&teste);
 
 				//UPDATES TOWER ATTACK POSITION AND COOLDOWN
 				UpdateAttack(&towerAttack);
@@ -100,7 +95,6 @@ int main(void)
             			DrawTower(tower);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 				DrawText(attackCooldownText, 0, SCREEN_HEIGHT-24, 24, PDARKRED);
-				DrawAnimatedSprite(teste);
 
 				if(enemy)
 				{
@@ -122,7 +116,7 @@ int main(void)
 				else{towerAttack.isAttacking=0;}
 
 				//DRAW THE TOWER ATTAACK
-				if(towerAttack.isAttacking==1){DrawTowerAttack(&towerAttack);}
+				if(towerAttack.isAttacking==1){DrawTowerAttack(towerAttack);}
 
         			EndDrawing();
 			

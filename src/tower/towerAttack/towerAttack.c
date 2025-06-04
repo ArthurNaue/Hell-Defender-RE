@@ -5,24 +5,26 @@ char attackCooldownText[32];
 
 void InitTowerAttack(TowerAttack *towerAttack) 
 {
+	AnimatedSprite animSprite;
+	InitAnimatedSprite(&animSprite);
+
 	towerAttack->size = TOWERATTACK_SIZE;
 	towerAttack->rec = (Rectangle){0, 0, towerAttack->size, towerAttack->size};
-	towerAttack->img = LoadImage("assets/images/tower/towerAttack/towerAttack.png");
-	towerAttack->tex = LoadTextureFromImage(towerAttack->img);
+	towerAttack->animSprite = animSprite;
 	towerAttack->cooldown = TOWERATTACK_COOLDOWN;
 	towerAttack->isAttacking = 0;
-
-	UnloadImage(towerAttack->img);
 }
 
-void DrawTowerAttack(TowerAttack *towerAttack) 
+void DrawTowerAttack(TowerAttack towerAttack) 
 {
-	//DRAW THE ATTACK TEXTURE
-	DrawTextureV(towerAttack->tex, (Vector2){towerAttack->rec.x, towerAttack->rec.y}, WHITE);
+	DrawAnimatedSprite(towerAttack.animSprite);
 }
 
 void UpdateAttack(TowerAttack *towerAttack)
 {
+	UpdateAnimatedSprite(&towerAttack->animSprite);
+	UpdateAnimatedSpritePos(&towerAttack->animSprite, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+
 	if(towerAttack->cooldown>0)
 	{
 		towerAttack->cooldown-= (1 * dt);

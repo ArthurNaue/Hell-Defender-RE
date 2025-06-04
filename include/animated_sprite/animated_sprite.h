@@ -20,6 +20,7 @@ typedef struct AnimatedSprite
 
 void InitAnimatedSprite(AnimatedSprite *animatedSprite);
 void UpdateAnimatedSprite(AnimatedSprite *animatedSprite);
+void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos);
 void DrawAnimatedSprite(AnimatedSprite animatedSprite);
 
 #endif
