@@ -80,13 +80,11 @@ void MoveEnemy(Enemy *enemy)
 
 	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 	UpdateEnemyRec(enemy);
-
 	
-	int spriteDirection;
-	if((distanceX/distance)>0){spriteDirection=1;}
-	else{spriteDirection=0;}
+	if((distanceX/distance)>0){SetAnimatedSpriteDir(&enemy->animSprite, 1);}
+	else{SetAnimatedSpriteDir(&enemy->animSprite, 0);}
 
-	UpdateAnimatedSprite(&enemy->animSprite, spriteDirection);
+	UpdateAnimatedSprite(&enemy->animSprite);
 	UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
 }
 

@@ -17,7 +17,7 @@ void InitAnimatedSprite(AnimatedSprite *animatedSprite, Image img, int numFrames
 	UnloadImage(animatedSprite->img);
 }
 
-void UpdateAnimatedSprite(AnimatedSprite *animatedSprite, int facingRight)
+void UpdateAnimatedSprite(AnimatedSprite *animatedSprite)
 {
 	animatedSprite->frameTime += dt;
 	if(animatedSprite->frameTime >= animatedSprite->updateTime)
@@ -28,9 +28,6 @@ void UpdateAnimatedSprite(AnimatedSprite *animatedSprite, int facingRight)
 
 		animatedSprite->frameRec.x = (float){animatedSprite->currentFrame * animatedSprite->frameWidth};
 	}
-
-	if(facingRight==1){animatedSprite->frameRec.width = animatedSprite->frameWidth;}
-	else{animatedSprite->frameRec.width = -animatedSprite->frameWidth;}
 }
 
 void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos)
@@ -41,4 +38,10 @@ void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos)
 void DrawAnimatedSprite(AnimatedSprite animatedSprite)
 {
 	DrawTextureRec(animatedSprite.tex, animatedSprite.frameRec, animatedSprite.pos, WHITE);
+}
+
+void SetAnimatedSpriteDir(AnimatedSprite *animatedSprite, int facingRight)
+{
+	if(facingRight==1){animatedSprite->frameRec.width = animatedSprite->frameWidth;}
+	else{animatedSprite->frameRec.width = -animatedSprite->frameWidth;}
 }
