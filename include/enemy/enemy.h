@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "raylib.h"
+#include "animated_sprite/animated_sprite.h"
 #include "points/points.h"
 
 #define ENEMY_SIZE 64
@@ -19,8 +20,7 @@ typedef struct Enemy
 	float size;
 	Color color;
 	Rectangle rec;
-	Image img;
-	Texture2D tex;
+	AnimatedSprite animSprite;
 } Enemy;
 
 //DEFINES THE ENEMY FUNCTIONS
@@ -30,6 +30,5 @@ void UpdateEnemySpeed(Enemy *enemy);
 void MoveEnemy(Enemy *enemy);
 void UpdateEnemyRec(Enemy *enemy);
 void DamageEnemy(Enemy *enemy);
-void KillEnemy(Enemy *enemy);
 
 #endif

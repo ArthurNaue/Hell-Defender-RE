@@ -5,7 +5,7 @@ void InitAnimatedSprite(AnimatedSprite *animatedSprite, Image img, int numFrames
 {
 	animatedSprite->img = img;
 	animatedSprite->tex = LoadTextureFromImage(animatedSprite->img);
-	animatedSprite->pos = (Vector2){0, 0};
+	animatedSprite->pos = (Vector2){800, 800};
 	animatedSprite->frameWidth = 64;
 	animatedSprite->frameHeight = 64;
 	animatedSprite->frameTime = 0.0f;

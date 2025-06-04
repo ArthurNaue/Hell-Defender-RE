@@ -30,29 +30,29 @@ void InitEnemy(Enemy *enemy)
 	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
 	int iChosenEnemy = (rand() % ENEMY_NUMBER) + 1;
 
+	AnimatedSprite animSprite;
+
 	//VERIFIES WHICH ENEMY WAS CHOSEN
 	switch(iChosenEnemy)
 	{
-		case 1:{enemy->img = LoadImage("assets/images/enemies/ghost.png"); enemy->health=1; enemy->speed=2;  break;}
-		case 2:{enemy->img = LoadImage("assets/images/enemies/skeleton.png"); enemy->health=2; enemy->speed=1;  break;}
+		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 1, 1.0f); enemy->health=1; enemy->speed=2;  break;}
+		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 1, 1.0f); enemy->health=2; enemy->speed=1;  break;}
 	}
 
 	//DEFINES ENEMY PARAMETERS
     	enemy->size = ENEMY_SIZE;
     	enemy->color = RED;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
-    	enemy->tex = LoadTextureFromImage(enemy->img);
+
+	enemy->animSprite = animSprite;
 
 	UpdateEnemySpeed(enemy);
-
-	UnloadImage(enemy->img);
 }
 
 //FUNCTION THAT DRAWS THE ENEMY
 void DrawEnemy(Enemy enemy)
 {
-	//DRAW THE ENEMY TEXTURE
-	DrawTextureV(enemy.tex, enemy.pos, WHITE);
+	DrawAnimatedSprite(enemy.animSprite);
 }
 
 //FUNCTION THAT UPDATES THE ENEMY SPEED
@@ -81,6 +81,8 @@ void MoveEnemy(Enemy *enemy)
 
 	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 	UpdateEnemyRec(enemy);
+	
+	UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
 }
 
 //FUNCTION THAT UPDATES THE ENEMY RECTANGLE
@@ -95,10 +97,4 @@ void DamageEnemy(Enemy *enemy)
 {
 	//REDUCES PLAYER HEALTH AND KILLS ENEMY IF BELLOW ZERO
 	enemy->health -= 1;
-}
-
-//FUNCTIONS THAT KILL THE ENEMY
-void KillEnemy(Enemy *enemy)
-{
-	UnloadTexture(enemy->tex);
 }
