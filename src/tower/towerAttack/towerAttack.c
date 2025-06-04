@@ -6,7 +6,7 @@ char attackCooldownText[32];
 void InitTowerAttack(TowerAttack *towerAttack) 
 {
 	AnimatedSprite animSprite;
-	InitAnimatedSprite(&animSprite);
+	InitAnimatedSprite(&animSprite, LoadImage("assets/images/tower/towerAttack/towerAttack.png"), 2, 0.5f);
 
 	towerAttack->size = TOWERATTACK_SIZE;
 	towerAttack->rec = (Rectangle){0, 0, towerAttack->size, towerAttack->size};

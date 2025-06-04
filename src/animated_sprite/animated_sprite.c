@@ -1,18 +1,18 @@
 #include "animated_sprite/animated_sprite.h"
 #include "raylib.h"
 
-void InitAnimatedSprite(AnimatedSprite *animatedSprite)
+void InitAnimatedSprite(AnimatedSprite *animatedSprite, Image img, int numFrames, float updateTime)
 {
-	animatedSprite->img = LoadImage("assets/images/tower/towerAttack/towerAttack.png");
+	animatedSprite->img = img;
 	animatedSprite->tex = LoadTextureFromImage(animatedSprite->img);
-	animatedSprite->pos = (Vector2){300, 450};
+	animatedSprite->pos = (Vector2){0, 0};
 	animatedSprite->frameWidth = 64;
 	animatedSprite->frameHeight = 64;
 	animatedSprite->frameTime = 0.0f;
 	animatedSprite->frameRec = (Rectangle){0, 0, animatedSprite->frameWidth, animatedSprite->frameHeight};
-	animatedSprite->numFrames = 2;
+	animatedSprite->numFrames = numFrames;
 	animatedSprite->currentFrame = 0;
-	animatedSprite->updateTime = 0.2f;
+	animatedSprite->updateTime = updateTime;
 
 	UnloadImage(animatedSprite->img);
 }
