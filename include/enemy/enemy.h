@@ -11,7 +11,8 @@
 extern int speedMultiplier;
 
 //DEFINES THE ENEMY STRUCTURE
-typedef struct Enemy {
+typedef struct Enemy 
+{
 	int health;
 	Vector2 pos;
 	float speed;
