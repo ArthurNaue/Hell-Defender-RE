@@ -24,6 +24,8 @@ typedef struct TowerAttack
 void InitTowerAttack(TowerAttack *towerAttack);
 void DrawTowerAttack(TowerAttack towerAttack);
 void UpdateAttack(TowerAttack *towerAttack);
+void TurnAttackOn(TowerAttack *towerAttack);
+void TurnAttackOff(TowerAttack *towerAttack);
 void ResetAttackCooldown(TowerAttack *towerAttack);
 
 #endif

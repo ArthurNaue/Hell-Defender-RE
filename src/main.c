@@ -75,8 +75,6 @@ int main(void)
 			case GAMEPLAY:
 			{
 
-				//UPDATES TOWER ATTACK POSITION AND COOLDOWN
-				UpdateAttack(&towerAttack);
 
 				if(IsKeyPressed(KEY_ESCAPE)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 
@@ -111,12 +109,12 @@ int main(void)
 					else if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 				}
 
-				//USE THE TOWER ATTACK IF PLAYER HOLDS M1
-				if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){towerAttack.isAttacking=1;}
-				else{towerAttack.isAttacking=0;}
+				//DRAW AND UPDATE TOWER ATTACK POSITION AND COOLDOWN
+				UpdateAttack(&towerAttack);
 
-				//DRAW THE TOWER ATTAACK
-				if(towerAttack.isAttacking==1){DrawTowerAttack(towerAttack);}
+				//USE THE TOWER ATTACK IF PLAYER HOLDS M1
+				if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){TurnAttackOn(&towerAttack);}
+				else{TurnAttackOff(&towerAttack);}
 
         			EndDrawing();
 			

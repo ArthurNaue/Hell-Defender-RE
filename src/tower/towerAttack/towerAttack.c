@@ -24,6 +24,11 @@ void UpdateAttack(TowerAttack *towerAttack)
 {
 	UpdateAnimatedSprite(&towerAttack->animSprite);
 	UpdateAnimatedSpritePos(&towerAttack->animSprite, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+	
+	if(towerAttack->isAttacking==1)
+	{
+		DrawTowerAttack(*towerAttack);
+	}
 
 	if(towerAttack->cooldown>0)
 	{
@@ -36,6 +41,18 @@ void UpdateAttack(TowerAttack *towerAttack)
 	//UPDATES TOWER ATTACK RECTANGLE
 	towerAttack->rec.x = mousePosition.x - (towerAttack->rec.width/2);
 	towerAttack->rec.y = mousePosition.y - (towerAttack->rec.height/2);
+}
+
+void TurnAttackOn(TowerAttack *towerAttack)
+{
+	towerAttack->isAttacking = 1;
+	HideCursor();
+}
+
+void TurnAttackOff(TowerAttack *towerAttack)
+{
+	towerAttack->isAttacking = 0;
+	ShowCursor();
 }
 
 void ResetAttackCooldown(TowerAttack *towerAttack)
