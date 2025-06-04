@@ -22,7 +22,7 @@ void DrawTowerAttack(TowerAttack towerAttack)
 
 void UpdateAttack(TowerAttack *towerAttack)
 {
-	UpdateAnimatedSprite(&towerAttack->animSprite);
+	UpdateAnimatedSprite(&towerAttack->animSprite, 1);
 	UpdateAnimatedSpritePos(&towerAttack->animSprite, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
 	
 	if(towerAttack->isAttacking==1)

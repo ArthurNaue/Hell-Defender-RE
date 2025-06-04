@@ -9,15 +9,15 @@ void InitAnimatedSprite(AnimatedSprite *animatedSprite, Image img, int numFrames
 	animatedSprite->frameWidth = 64;
 	animatedSprite->frameHeight = 64;
 	animatedSprite->frameTime = 0.0f;
-	animatedSprite->frameRec = (Rectangle){0, 0, animatedSprite->frameWidth, animatedSprite->frameHeight};
 	animatedSprite->numFrames = numFrames;
 	animatedSprite->currentFrame = 0;
 	animatedSprite->updateTime = updateTime;
+	animatedSprite->frameRec = (Rectangle){0, 0, animatedSprite->frameWidth, animatedSprite->frameHeight};
 
 	UnloadImage(animatedSprite->img);
 }
 
-void UpdateAnimatedSprite(AnimatedSprite *animatedSprite)
+void UpdateAnimatedSprite(AnimatedSprite *animatedSprite, int facingRight)
 {
 	animatedSprite->frameTime += dt;
 	if(animatedSprite->frameTime >= animatedSprite->updateTime)
@@ -28,6 +28,9 @@ void UpdateAnimatedSprite(AnimatedSprite *animatedSprite)
 
 		animatedSprite->frameRec.x = (float){animatedSprite->currentFrame * animatedSprite->frameWidth};
 	}
+
+	if(facingRight==1){animatedSprite->frameRec.width = animatedSprite->frameWidth;}
+	else{animatedSprite->frameRec.width = -animatedSprite->frameWidth;}
 }
 
 void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos)

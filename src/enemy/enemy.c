@@ -41,7 +41,6 @@ void InitEnemy(Enemy *enemy)
 
 	//DEFINES ENEMY PARAMETERS
     	enemy->size = ENEMY_SIZE;
-    	enemy->color = RED;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
 
 	enemy->animSprite = animSprite;
@@ -82,7 +81,12 @@ void MoveEnemy(Enemy *enemy)
 	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 	UpdateEnemyRec(enemy);
 
-	UpdateAnimatedSprite(&enemy->animSprite);
+	
+	int spriteDirection;
+	if((distanceX/distance)>0){spriteDirection=1;}
+	else{spriteDirection=0;}
+
+	UpdateAnimatedSprite(&enemy->animSprite, spriteDirection);
 	UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
 }
 

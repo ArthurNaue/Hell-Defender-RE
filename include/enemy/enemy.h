@@ -18,7 +18,6 @@ typedef struct Enemy
 	Vector2 pos;
 	float speed;
 	float size;
-	Color color;
 	Rectangle rec;
 	AnimatedSprite animSprite;
 } Enemy;

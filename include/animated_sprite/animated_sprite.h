@@ -19,7 +19,7 @@ typedef struct AnimatedSprite
 } AnimatedSprite;
 
 void InitAnimatedSprite(AnimatedSprite *animatedSprite, Image img, int numFrames, float updateTime);
-void UpdateAnimatedSprite(AnimatedSprite *animatedSprite);
+void UpdateAnimatedSprite(AnimatedSprite *animatedSprite, int facingRight);
 void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos);
 void DrawAnimatedSprite(AnimatedSprite animatedSprite);
 
