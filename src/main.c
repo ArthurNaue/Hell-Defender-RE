@@ -23,6 +23,7 @@ int main(void)
 	SetTargetFPS(60);
 	SetExitKey(KEY_NULL);
 
+	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
 
 	//INITIALIZE THE POINTS
@@ -38,6 +39,7 @@ int main(void)
 	Enemy *enemy = malloc(sizeof(Enemy));
 	InitEnemy(enemy);
 
+	//INITIALIZE THE FIRE DECORATIONS VARIABLES
 	int firesGenerated = 0;
 	int fireNumber;
 	FireDecoration *fireList;
@@ -59,6 +61,12 @@ int main(void)
 		{
 			case TITLE:
 			{
+				if(firesGenerated==1)
+				{
+					free(fireList);
+					firesGenerated=0;
+				}
+
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
@@ -99,13 +107,16 @@ int main(void)
 
 				if(firesGenerated==0)
 				{
+					//GENERATE A RANDOM NUMBER OF FIRES AND ALLOCATE IT TO THE MEMORY
 					fireNumber = (rand() % 4) + 1;
 					fireList = malloc(sizeof(FireDecoration) * fireNumber);
 
 					for(int i=0; i<fireNumber; i++)
 					{
+						//GENERATE A RANDOM FIRE POSITION
 						Vector2 randomPos = {(rand() % SCREEN_WIDTH) + 1, (rand() % SCREEN_HEIGHT) + 1};
 
+						//SPAWN THE FIRE
 						FireDecoration fire;
 						InitFireDecoration(&fire, randomPos);
 						fireList[i] = fire;
@@ -117,6 +128,7 @@ int main(void)
 				{
 					for(int i=0; i<=fireNumber; i++)
 					{
+						//UPDATE AND DRAWS FIRE DECORATIONS
 						UpdateFireDecoration(&fireList[i]);
 						DrawFireDecoration(fireList[i]);
 					}
@@ -157,7 +169,11 @@ int main(void)
 		}
 	}
 
-	free(fireList);
+	if(firesGenerated==1)
+	{
+		//REMOVES THE FIRE DECORATIONS FROM THE MEMORY
+		free(fireList);
+	}
 
 	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();
