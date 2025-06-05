@@ -10,6 +10,7 @@
 #include "tower/tower.h"
 #include "tower/towerAttack/towerAttack.h"
 #include "enemy/enemy.h"
+#include "fire_decorations/fire_decorations.h"
 
 //DEFINE GAME SCREENS ENUM
 gameScreen currentScreen = TITLE; 
@@ -24,16 +25,22 @@ int main(void)
 	//INITIALIZE THE POINTS
 	InitPoints();
 	
+	//INITIALIZE THE TOWER AND THE TOWERS ATTACK
 	Tower tower;
 	InitTower(&tower);
 	TowerAttack towerAttack;
 	InitTowerAttack(&towerAttack);
 
+	//INITIALIZE THE ENEMY
 	Enemy *enemy = malloc(sizeof(Enemy));
 	InitEnemy(enemy);
 
+	FireDecoration fire;
+	InitFireDecoration(&fire, (Vector2){300, 450});
+
 	while (!WindowShouldClose())
 	{
+		//UPDATES THE DELTA TIME
 		UpdateDt();
 
 		//ATUALIZA O TEXTO DOS PONTOS
@@ -48,7 +55,6 @@ int main(void)
 		{
 			case TITLE:
 			{
-
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
@@ -74,8 +80,6 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
-
-
 				if(IsKeyPressed(KEY_ESCAPE)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
 
 				//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMYMoveEnemy(enemy);
@@ -87,10 +91,13 @@ int main(void)
 					InitEnemy(enemy);
 				}
 
+				UpdateFireDecoration(&fire);
+
         			BeginDrawing();
 
             			ClearBackground(PORANGE);
             			DrawTower(tower);
+				DrawFireDecoration(fire);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 				DrawText(attackCooldownText, 0, SCREEN_HEIGHT-24, 24, PDARKRED);
 
