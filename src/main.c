@@ -1,3 +1,4 @@
+#include <time.h>
 #include "raylib.h"
 #define RAYGUI_IMPLEMENTATION
 #include "raygui/raygui.h"
@@ -22,6 +23,8 @@ int main(void)
 	SetTargetFPS(60);
 	SetExitKey(KEY_NULL);
 
+	srand(time(NULL));
+
 	//INITIALIZE THE POINTS
 	InitPoints();
 	
@@ -35,8 +38,9 @@ int main(void)
 	Enemy *enemy = malloc(sizeof(Enemy));
 	InitEnemy(enemy);
 
-	FireDecoration fire;
-	InitFireDecoration(&fire, (Vector2){300, 450});
+	int firesGenerated = 0;
+	int fireNumber;
+	FireDecoration *fireList;
 
 	while (!WindowShouldClose())
 	{
@@ -90,14 +94,36 @@ int main(void)
 					enemy = malloc(sizeof(Enemy));
 					InitEnemy(enemy);
 				}
+        			
+				BeginDrawing();
 
-				UpdateFireDecoration(&fire);
+				if(firesGenerated==0)
+				{
+					fireNumber = (rand() % 4) + 1;
+					fireList = malloc(sizeof(FireDecoration) * fireNumber);
 
-        			BeginDrawing();
+					for(int i=0; i<fireNumber; i++)
+					{
+						Vector2 randomPos = {(rand() % SCREEN_WIDTH) + 1, (rand() % SCREEN_HEIGHT) + 1};
+
+						FireDecoration fire;
+						InitFireDecoration(&fire, randomPos);
+						fireList[i] = fire;
+					}
+
+					firesGenerated = 1;
+				}
+				else
+				{
+					for(int i=0; i<=fireNumber; i++)
+					{
+						UpdateFireDecoration(&fireList[i]);
+						DrawFireDecoration(fireList[i]);
+					}
+				}
 
             			ClearBackground(PORANGE);
             			DrawTower(tower);
-				DrawFireDecoration(fire);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 				DrawText(attackCooldownText, 0, SCREEN_HEIGHT-24, 24, PDARKRED);
 
@@ -130,6 +156,9 @@ int main(void)
 			default: break;
 		}
 	}
+
+	free(fireList);
+
 	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();
 	return 0;
