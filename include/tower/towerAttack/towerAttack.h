@@ -15,7 +15,8 @@ typedef struct TowerAttack
 {
     float size;
     Rectangle rec;
-    AnimatedSprite animSprite;
+    AnimatedSprite animSpriteActive;
+    AnimatedSprite animSpriteUnnactive;
     int cooldown;
     int isAttacking;
 } TowerAttack;

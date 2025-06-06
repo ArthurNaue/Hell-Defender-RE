@@ -5,25 +5,44 @@ char attackCooldownText[32];
 
 void InitTowerAttack(TowerAttack *towerAttack) 
 {
-	AnimatedSprite animSprite;
-	InitAnimatedSprite(&animSprite, LoadImage("assets/images/tower/tower_attack/tower_attack.png"), 2, 0.5f);
+	AnimatedSprite animSpriteActive;
+	InitAnimatedSprite(&animSpriteActive, LoadImage("assets/images/tower/tower_attack/tower_attack_active.png"), 2, 0.5f);
+	towerAttack->animSpriteActive = animSpriteActive;
+
+	AnimatedSprite animSpriteUnnactive;
+	InitAnimatedSprite(&animSpriteUnnactive, LoadImage("assets/images/tower/tower_attack/tower_attack_unnactive.png"), 2, 0.5f);
+	towerAttack->animSpriteUnnactive = animSpriteUnnactive;
 
 	towerAttack->size = TOWERATTACK_SIZE;
 	towerAttack->rec = (Rectangle){0, 0, towerAttack->size, towerAttack->size};
-	towerAttack->animSprite = animSprite;
 	towerAttack->cooldown = TOWERATTACK_COOLDOWN;
 	towerAttack->isAttacking = 0;
 }
 
 void DrawTowerAttack(TowerAttack towerAttack) 
 {
-	DrawAnimatedSprite(towerAttack.animSprite);
+	if(towerAttack.cooldown>0)
+	{
+		DrawAnimatedSprite(towerAttack.animSpriteUnnactive);
+	}
+	else
+	{
+		DrawAnimatedSprite(towerAttack.animSpriteActive);
+	}
 }
 
 void UpdateAttack(TowerAttack *towerAttack)
 {
-	UpdateAnimatedSprite(&towerAttack->animSprite);
-	UpdateAnimatedSpritePos(&towerAttack->animSprite, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+	if(towerAttack->cooldown>0)
+	{
+		UpdateAnimatedSprite(&towerAttack->animSpriteUnnactive);
+		UpdateAnimatedSpritePos(&towerAttack->animSpriteUnnactive, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+	}
+	else
+	{
+		UpdateAnimatedSprite(&towerAttack->animSpriteActive);
+		UpdateAnimatedSpritePos(&towerAttack->animSpriteActive, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+	}
 	
 	if(towerAttack->isAttacking==1)
 	{
