@@ -4,10 +4,9 @@
 void InitTower(Tower *tower) 
 {
 	//DEFINES TOWER PARAMETERS
-	tower->pos = (Vector2){300 - (TOWER_SIZE/2), 300 - (TOWER_SIZE/2)};
-	tower->size = TOWER_SIZE;
+	tower->pos = (Vector2){300 - (TOWER_SIZE_X/2), 300 - (TOWER_SIZE_Y/2)};
 	tower->color = GREEN;
-	tower->rec = (Rectangle){tower->pos.x, tower->pos.y,  tower->size, tower->size};
+	tower->rec = (Rectangle){tower->pos.x + TOWER_PADDING_X, tower->pos.y + TOWER_PADDING_Y,  TOWER_SIZE_X, TOWER_SIZE_Y};
 	tower->img = LoadImage("assets/images/tower/tower.png");
 	tower->tex = LoadTextureFromImage(tower->img);
 
