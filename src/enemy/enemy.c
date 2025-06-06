@@ -27,23 +27,11 @@ void InitEnemy(Enemy *enemy)
 		default: break;
     	}
 
-	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
-	int iChosenEnemy = (rand() % ENEMY_NUMBER) + 1;
-
-	AnimatedSprite animSprite;
-
-	//VERIFIES WHICH ENEMY WAS CHOSEN
-	switch(iChosenEnemy)
-	{
-		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=2;  break;}
-		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=1;  break;}
-	}
+	SpawnEnemy(enemy);
 
 	//DEFINES ENEMY PARAMETERS
     	enemy->size = ENEMY_SIZE;
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
-
-	enemy->animSprite = animSprite;
 
 	UpdateEnemySpeed(enemy);
 }
@@ -100,4 +88,22 @@ void DamageEnemy(Enemy *enemy)
 {
 	//REDUCES PLAYER HEALTH AND KILLS ENEMY IF BELLOW ZERO
 	enemy->health -= 1;
+}
+
+//FUNCTION THAT SPAWNS THE ENEMY
+void SpawnEnemy(Enemy *enemy)
+{
+	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
+	int iChosenEnemy = (rand() % ENEMY_NUMBER) + 1;
+
+	AnimatedSprite animSprite;
+
+	//VERIFIES WHICH ENEMY WAS CHOSEN
+	switch(iChosenEnemy)
+	{
+		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=2;  break;}
+		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=1;  break;}
+	}
+
+	enemy->animSprite = animSprite;
 }

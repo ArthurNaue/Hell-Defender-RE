@@ -29,5 +29,6 @@ void UpdateEnemySpeed(Enemy *enemy);
 void MoveEnemy(Enemy *enemy);
 void UpdateEnemyRec(Enemy *enemy);
 void DamageEnemy(Enemy *enemy);
+void SpawnEnemy(Enemy *enemy);
 
 #endif
