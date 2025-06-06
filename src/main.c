@@ -26,6 +26,10 @@ int main(void)
 	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
 
+	//INITIALIZE THE TITTLE SCREEN LETTERING
+	Image tittleLetteringImg = LoadImage("assets/images/letterings/tittle_screen.png");
+	Texture2D tittleLetteringTex = LoadTextureFromImage(tittleLetteringImg);
+
 	//INITIALIZE THE POINTS
 	InitPoints();
 	
@@ -44,7 +48,10 @@ int main(void)
 	int fireNumber;
 	FireDecoration *fireList;
 
-	while (!WindowShouldClose())
+	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
+	int game = 1;
+
+	while (game==1)
 	{
 		//UPDATES THE DELTA TIME
 		UpdateDt();
@@ -70,11 +77,13 @@ int main(void)
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
-				DrawText("HELL DEFENDER RE", SCREEN_WIDTH/2 - ((SCREEN_WIDTH/2)/2), SCREEN_HEIGHT/6, 24, PDARKRED);
+
+				DrawTextureV(tittleLetteringTex, (Vector2){0 + 48, 100}, WHITE);
+
 				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
 				
-				//VERIFIES IF GUI BUTTON WAS PRESSED
-				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - ((SCREEN_WIDTH/2)/2), SCREEN_HEIGHT/2 - ((SCREEN_HEIGHT/2)/2), SCREEN_WIDTH/2, SCREEN_HEIGHT/2}, "PLAY"))
+				//VERIFIES IF PLAY GUI BUTTON WAS PRESSED
+				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY"))
 				{
 					if(enemy==NULL)
 					{
@@ -85,6 +94,9 @@ int main(void)
 					//CHANGE SCREEN TO GAMEPLAY
 					currentScreen=GAMEPLAY;
 				}
+
+				//VERIFIES IF EXIT GUI BUTTON WAS PRESSED
+				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 150, 200, 100}, "EXIT")){game = 0;}
 
         			EndDrawing();
 
@@ -126,7 +138,7 @@ int main(void)
 				}
 				else
 				{
-					for(int i=0; i<=fireNumber; i++)
+					for(int i=0; i<fireNumber; i++)
 					{
 						//UPDATE AND DRAWS FIRE DECORATIONS
 						UpdateFireDecoration(&fireList[i]);
