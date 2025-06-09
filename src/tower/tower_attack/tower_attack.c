@@ -1,7 +1,6 @@
 #include "tower/tower_attack/tower_attack.h"
 #include "dt/dt.h"
 
-char attackCooldownText[32];
 TowerAttack towerAttack;
 
 void InitTowerAttack(TowerAttack *towerAttack) 

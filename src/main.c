@@ -30,6 +30,8 @@ int main(void)
 	Image tittleLetteringImg = LoadImage("assets/images/letterings/tittle_screen.png");
 	Texture2D tittleLetteringTex = LoadTextureFromImage(tittleLetteringImg);
 
+	float enemyCooldown = 1;
+
 	//INITIALIZE THE POINTS
 	InitPoints();
 	
@@ -42,8 +44,6 @@ int main(void)
 	int firesGenerated = 0;
 	int fireNumber;
 	FireDecoration *fireList;
-
-	CreateEnemy();
 
 	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
 	int game = 1;
@@ -94,6 +94,15 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
+				if(enemyCooldown<=0)
+				{
+					CreateEnemy();
+					enemyCooldown = 5;
+				}
+				else{enemyCooldown -= dt;}
+
+				if(IsKeyPressed(KEY_ESCAPE)){CheckAndUpdateMaxPoints(); currentScreen = TITLE;}
+
 				BeginDrawing();
 
 				if(firesGenerated==0)
@@ -128,7 +137,6 @@ int main(void)
             			ClearBackground(PORANGE);
             			DrawTower(tower);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
-				DrawText(attackCooldownText, 0, SCREEN_HEIGHT-24, 24, PDARKRED);
 
 				DrawEnemies();
 				MoveEnemies();

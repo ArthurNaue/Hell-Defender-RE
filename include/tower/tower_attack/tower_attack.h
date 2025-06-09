@@ -8,8 +8,6 @@
 #include "animated_sprite/animated_sprite.h"
 #include "tower/tower.h"
 
-extern char attackCooldownText[32];
-
 //DEFINES THE TOWER STRUCTURE
 typedef struct TowerAttack 
 {

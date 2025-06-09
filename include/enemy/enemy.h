@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "animated_sprite/animated_sprite.h"
 #include "points/points.h"
+#include "tower/tower_attack/tower_attack.h"
 
 #define ENEMY_SIZE 64
 #define ENEMY_NUMBER 2
@@ -33,7 +34,9 @@ void DrawEnemies(void);
 void UpdateEnemySpeed(Enemy *enemy);
 void MoveEnemies(void);
 void UpdateEnemyRec(Enemy *enemy);
+void CheckForEnemyDamage(TowerAttack *towerAttack);
 void DamageEnemy(Enemy *enemy);
+void RemoveEnemy(int index);
 void SpawnEnemy(Enemy *enemy);
 
 #endif

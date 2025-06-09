@@ -17,6 +17,8 @@ void CreateEnemy(void)
 //FUNCTION THAT INITIALIZES ENEMY
 void InitEnemy(Enemy *enemy) 
 {
+	enemiesAlive++;
+
 	//GENERATES A RANDOM NUMBER BETWEEN 1 AND 8 TO DEFINE WHICH POSITION SHOULD THE ENEMY SPAWN
 	int randomPos = (rand() % 8) + 1;
 
@@ -42,8 +44,6 @@ void InitEnemy(Enemy *enemy)
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
 
 	UpdateEnemySpeed(enemy);
-
-	enemiesAlive++;
 
 	UpdateEnemiesList(*enemy, &enemiesList);
 }
@@ -99,6 +99,8 @@ void MoveEnemies(void)
 		UpdateAnimatedSprite(&enemy->animSprite);
 		UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
 	}
+
+	CheckForEnemyDamage(&towerAttack);
 }
 
 //FUNCTION THAT UPDATES THE ENEMY RECTANGLE
@@ -108,11 +110,35 @@ void UpdateEnemyRec(Enemy *enemy)
 	enemy->rec.y = enemy->pos.y;
 }
 
+void CheckForEnemyDamage(TowerAttack *towerAttack)
+{
+	for(int i=0; i<enemiesAlive; i++)
+	{
+		if(CheckCollisionRecs(towerAttack->rec, enemiesList[i].rec) && towerAttack->isAttacking == 1 && towerAttack->cooldown<=0)
+		{
+			DamageEnemy(&enemiesList[i]);
+			ResetAttackCooldown(towerAttack);
+
+			if(enemiesList[i].health<1){RemoveEnemy(i); points++;}
+		}
+	}
+}
+
 //FUNCTION THAT DAMAGES THE ENEMY
 void DamageEnemy(Enemy *enemy)
 {
 	//REDUCES PLAYER HEALTH AND KILLS ENEMY IF BELLOW ZERO
 	enemy->health -= 1;
+}
+
+void RemoveEnemy(int index)
+{
+	if(enemiesAlive<=0){return;}
+
+	enemiesList[index] = enemiesList[enemiesAlive-1];
+	enemiesAlive--;
+
+	enemiesList = realloc(enemiesList, sizeof(Enemy) * enemiesAlive);
 }
 
 //FUNCTION THAT SPAWNS THE ENEMY
@@ -126,8 +152,8 @@ void SpawnEnemy(Enemy *enemy)
 	//VERIFIES WHICH ENEMY WAS CHOSEN
 	switch(iChosenEnemy)
 	{
-		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=2;  break;}
-		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=1;  break;}
+		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=0.5;  break;}
+		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=0.25;  break;}
 	}
 
 	enemy->animSprite = animSprite;
