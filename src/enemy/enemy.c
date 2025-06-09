@@ -5,6 +5,14 @@
 #include "points/points.h"
 
 int speedMultiplier;
+Enemy *enemiesList = NULL;
+int enemiesAlive;
+
+void CreateEnemy(void)
+{
+	Enemy enemy;
+	InitEnemy(&enemy);
+}
 
 //FUNCTION THAT INITIALIZES ENEMY
 void InitEnemy(Enemy *enemy) 
@@ -34,12 +42,25 @@ void InitEnemy(Enemy *enemy)
     	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
 
 	UpdateEnemySpeed(enemy);
+
+	enemiesAlive++;
+
+	UpdateEnemiesList(*enemy, &enemiesList);
+}
+
+void UpdateEnemiesList(Enemy enemy, Enemy **enemiesList)
+{
+	*enemiesList = realloc(*enemiesList, sizeof(Enemy) * enemiesAlive);
+	(*enemiesList)[enemiesAlive - 1] = enemy;
 }
 
 //FUNCTION THAT DRAWS THE ENEMY
-void DrawEnemy(Enemy enemy)
+void DrawEnemies(void)
 {
-	DrawAnimatedSprite(enemy.animSprite);
+	for(int i=0; i<enemiesAlive; i++)
+	{
+		DrawAnimatedSprite(enemiesList[i].animSprite);
+	}
 }
 
 //FUNCTION THAT UPDATES THE ENEMY SPEED
@@ -51,29 +72,33 @@ void UpdateEnemySpeed(Enemy *enemy)
 }
 
 //FUNCTION THAT MOVES THE ENEMY
-void MoveEnemy(Enemy *enemy)
+void MoveEnemies(void)
 {
 	//CREATES THE POSITION OF THE SCREEN CENTER
 	Vector2 screenCenter = {SCREEN_WIDTH/2, SCREEN_HEIGHT/2};
 
-	//GET THE DISTANCE BETWEEN THE ENEMY AND THE TOWER
-	float distanceX = screenCenter.x  - enemy->pos.x;
-	float distanceY = screenCenter.y - enemy->pos.y;
-	//APPLY PITAGORAS TO PREVENT FASTER WALKING IN DIAGONALS
-	float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
+	for(int i=0; i<enemiesAlive; i++)
+	{
+		Enemy *enemy = &enemiesList[i];
+		//GET THE DISTANCE BETWEEN THE ENEMY AND THE TOWER
+		float distanceX = screenCenter.x  - enemy->pos.x;
+		float distanceY = screenCenter.y - enemy->pos.y;
+		//APPLY PITAGORAS TO PREVENT FASTER WALKING IN DIAGONALS
+		float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
 
-	//ADDS THE DIRECTION THE ENEMY SHOULD FOLLOW TO THE ENEMYS POSITION
-	enemy->pos.x += (distanceX / distance) * enemy->speed;
-	enemy->pos.y += (distanceY / distance) * enemy->speed;
+		//ADDS THE DIRECTION THE ENEMY SHOULD FOLLOW TO THE ENEMYS POSITION
+		enemy->pos.x += (distanceX / distance) * enemy->speed;
+		enemy->pos.y += (distanceY / distance) * enemy->speed;
 
-	//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
-	UpdateEnemyRec(enemy);
+		//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
+		UpdateEnemyRec(enemy);
 	
-	if((distanceX/distance)>0){SetAnimatedSpriteDir(&enemy->animSprite, 1);}
-	else{SetAnimatedSpriteDir(&enemy->animSprite, 0);}
+		if((distanceX/distance)>0){SetAnimatedSpriteDir(&enemy->animSprite, 1);}
+		else{SetAnimatedSpriteDir(&enemy->animSprite, 0);}
 
-	UpdateAnimatedSprite(&enemy->animSprite);
-	UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
+		UpdateAnimatedSprite(&enemy->animSprite);
+		UpdateAnimatedSpritePos(&enemy->animSprite, enemy->pos);
+	}
 }
 
 //FUNCTION THAT UPDATES THE ENEMY RECTANGLE

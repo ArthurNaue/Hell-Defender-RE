@@ -39,14 +39,12 @@ int main(void)
 	TowerAttack towerAttack;
 	InitTowerAttack(&towerAttack);
 
-	//INITIALIZE THE ENEMY
-	Enemy *enemy = malloc(sizeof(Enemy));
-	InitEnemy(enemy);
-
 	//INITIALIZE THE FIRE DECORATIONS VARIABLES
 	int firesGenerated = 0;
 	int fireNumber;
 	FireDecoration *fireList;
+
+	CreateEnemy();
 
 	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
 	int game = 1;
@@ -85,12 +83,6 @@ int main(void)
 				//VERIFIES IF PLAY GUI BUTTON WAS PRESSED
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY"))
 				{
-					if(enemy==NULL)
-					{
-						//IF NO ENEMY ALIVE, CREATE ONE
-						enemy = malloc(sizeof(Enemy));
-						InitEnemy(enemy);
-					}
 					//CHANGE SCREEN TO GAMEPLAY
 					currentScreen=GAMEPLAY;
 				}
@@ -104,17 +96,6 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
-				if(IsKeyPressed(KEY_ESCAPE)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
-
-				//IF ENEMY EXISTS, MOVE IT AND CHECK IF PLAYER CLICKED ON IT, IF IT DID, KILL THE ENEMYMoveEnemy(enemy);
-				if(enemy){MoveEnemy(enemy);}
-				else
-				{
-					//IF NO PLAYER EXISTS, CREATE ONE
-					enemy = malloc(sizeof(Enemy));
-					InitEnemy(enemy);
-				}
-        			
 				BeginDrawing();
 
 				if(firesGenerated==0)
@@ -151,20 +132,8 @@ int main(void)
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 				DrawText(attackCooldownText, 0, SCREEN_HEIGHT-24, 24, PDARKRED);
 
-				if(enemy)
-				{
-					DrawEnemy(*enemy);
-					//VERIFIES IF TOWER ATTACK HITS ENEMY
-					if(CheckCollisionRecs(towerAttack.rec, enemy->rec) && towerAttack.isAttacking==1 && towerAttack.cooldown<=0)
-					{
-						DamageEnemy(enemy);
-						ResetAttackCooldown(&towerAttack);
-
-						if(enemy->health<1){free(enemy); enemy=NULL; points++;}
-					}
-					//VERIFIES IF ENEMY TOUCHED THE TOWER AND ENDS THE GAME
-					else if(CheckCollisionRecs(tower.rec, enemy->rec)){free(enemy); enemy=NULL; currentScreen=TITLE; CheckAndUpdateMaxPoints();}
-				}
+				DrawEnemies();
+				MoveEnemies();
 
 				//DRAW AND UPDATE TOWER ATTACK POSITION AND COOLDOWN
 				UpdateAttack(&towerAttack);
@@ -187,6 +156,7 @@ int main(void)
 		free(fireList);
 	}
 
+	if(enemiesList!=NULL){free(enemiesList);}
 	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();
 	return 0;

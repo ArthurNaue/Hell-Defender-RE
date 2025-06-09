@@ -21,14 +21,8 @@ void InitTowerAttack(TowerAttack *towerAttack)
 
 void DrawTowerAttack(TowerAttack towerAttack) 
 {
-	if(towerAttack.cooldown>0)
-	{
-		DrawAnimatedSprite(towerAttack.animSpriteUnnactive);
-	}
-	else
-	{
-		DrawAnimatedSprite(towerAttack.animSpriteActive);
-	}
+	if(towerAttack.cooldown>0){DrawAnimatedSprite(towerAttack.animSpriteUnnactive);}
+	else{DrawAnimatedSprite(towerAttack.animSpriteActive);}
 }
 
 void UpdateAttack(TowerAttack *towerAttack)
@@ -44,15 +38,9 @@ void UpdateAttack(TowerAttack *towerAttack)
 		UpdateAnimatedSpritePos(&towerAttack->animSpriteActive, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
 	}
 	
-	if(towerAttack->isAttacking==1)
-	{
-		DrawTowerAttack(*towerAttack);
-	}
+	if(towerAttack->isAttacking==1){DrawTowerAttack(*towerAttack);}
 
-	if(towerAttack->cooldown>0)
-	{
-		towerAttack->cooldown-= (1 * dt);
-	}
+	if(towerAttack->cooldown>0){towerAttack->cooldown-= (1 * dt);}
 
 	//GETS THE CURSOR POSITION
 	Vector2 mousePosition = GetMousePosition();
