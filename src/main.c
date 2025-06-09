@@ -35,6 +35,8 @@ int main(void)
 	InitTower(&tower);	
 	InitTowerAttack(&towerAttack);
 
+	CreateFireDecoration();
+
 	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
 	int game = 1;
 
@@ -98,7 +100,9 @@ int main(void)
 				DrawTower(tower);
 				UpdateTowerAttack(&towerAttack);
 
-        			EndDrawing();
+       				DrawFireDecorations();
+				
+				EndDrawing();
 			
 			       	break;
 			} 
