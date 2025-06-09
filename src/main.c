@@ -13,9 +13,6 @@
 #include "enemy/enemy.h"
 #include "fire_decorations/fire_decorations.h"
 
-//DEFINE GAME SCREENS ENUM
-gameScreen currentScreen = TITLE; 
-
 int main(void)
 {
 	//WINDOW PARAMETERS
@@ -34,16 +31,9 @@ int main(void)
 
 	//INITIALIZE THE POINTS
 	InitPoints();
-	
-	//INITIALIZE THE TOWER AND THE TOWERS ATTACK
-	Tower tower;
-	InitTower(&tower);
-	InitTowerAttack(&towerAttack);
 
-	//INITIALIZE THE FIRE DECORATIONS VARIABLES
-	int firesGenerated = 0;
-	int fireNumber;
-	FireDecoration *fireList;
+	InitTower(&tower);	
+	InitTowerAttack(&towerAttack);
 
 	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
 	int game = 1;
@@ -64,12 +54,6 @@ int main(void)
 		{
 			case TITLE:
 			{
-				if(firesGenerated==1)
-				{
-					free(fireList);
-					firesGenerated=0;
-				}
-
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
@@ -105,42 +89,13 @@ int main(void)
 
 				BeginDrawing();
 
-				if(firesGenerated==0)
-				{
-					//GENERATE A RANDOM NUMBER OF FIRES AND ALLOCATE IT TO THE MEMORY
-					fireNumber = (rand() % 4) + 1;
-					fireList = malloc(sizeof(FireDecoration) * fireNumber);
-
-					for(int i=0; i<fireNumber; i++)
-					{
-						//GENERATE A RANDOM FIRE POSITION
-						Vector2 randomPos = {(rand() % SCREEN_WIDTH) + 1, (rand() % SCREEN_HEIGHT) + 1};
-
-						//SPAWN THE FIRE
-						FireDecoration fire;
-						InitFireDecoration(&fire, randomPos);
-						fireList[i] = fire;
-					}
-
-					firesGenerated = 1;
-				}
-				else
-				{
-					for(int i=0; i<fireNumber; i++)
-					{
-						//UPDATE AND DRAWS FIRE DECORATIONS
-						UpdateFireDecoration(&fireList[i]);
-						DrawFireDecoration(fireList[i]);
-					}
-				}
-
             			ClearBackground(PORANGE);
-            			DrawTower(tower);
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 
 				DrawEnemies();
 				MoveEnemies();
 
+				DrawTower(tower);
 				UpdateTowerAttack(&towerAttack);
 
         			EndDrawing();
@@ -151,13 +106,6 @@ int main(void)
 		}
 	}
 
-	if(firesGenerated==1)
-	{
-		//REMOVES THE FIRE DECORATIONS FROM THE MEMORY
-		free(fireList);
-	}
-
-	if(enemiesList!=NULL){free(enemiesList);}
 	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();
 	return 0;

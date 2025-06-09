@@ -1,5 +1,7 @@
 #include "tower/tower.h"
 
+Tower tower;
+
 //FUNCTION TO INITIALIZE TOWER
 void InitTower(Tower *tower) 
 {

@@ -18,6 +18,8 @@ typedef struct Tower {
     Texture2D tex;
 } Tower;
 
+extern Tower tower;
+
 //DEFINES THE TOWER FUNCTIONS
 void InitTower(Tower *tower);
 void DrawTower(Tower tower);

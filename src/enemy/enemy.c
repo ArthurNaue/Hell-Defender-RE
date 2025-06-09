@@ -3,6 +3,7 @@
 #include "enemy/enemy.h"
 #include "window_config/window_config.h"
 #include "points/points.h"
+#include "screens/screens.h"
 
 int speedMultiplier;
 Enemy *enemiesList = NULL;
@@ -10,8 +11,8 @@ int enemiesAlive;
 
 void CreateEnemy(void)
 {
-	Enemy enemy;
-	InitEnemy(&enemy);
+	Enemy *enemy = malloc(sizeof(Enemy));
+	InitEnemy(enemy);
 }
 
 //FUNCTION THAT INITIALIZES ENEMY
@@ -57,6 +58,8 @@ void UpdateEnemiesList(Enemy enemy, Enemy **enemiesList)
 //FUNCTION THAT DRAWS THE ENEMY
 void DrawEnemies(void)
 {
+	if(enemiesList==NULL){return;}
+
 	for(int i=0; i<enemiesAlive; i++)
 	{
 		DrawAnimatedSprite(enemiesList[i].animSprite);
@@ -121,6 +124,7 @@ void CheckForEnemyDamage(TowerAttack *towerAttack)
 
 			if(enemiesList[i].health<1){RemoveEnemy(i); points++;}
 		}
+		if(CheckCollisionRecs(tower.rec, enemiesList[i].rec)){CheckAndUpdateMaxPoints(); currentScreen=TITLE;}
 	}
 }
 
@@ -137,6 +141,17 @@ void RemoveEnemy(int index)
 
 	enemiesList[index] = enemiesList[enemiesAlive-1];
 	enemiesAlive--;
+
+	if(enemiesAlive>0)
+	{
+		Enemy *tmp = realloc(enemiesList, sizeof(Enemy) * enemiesAlive);
+		enemiesList = tmp;
+	}
+	else
+	{
+		free(enemiesList);
+		enemiesList = NULL;
+	}
 
 	enemiesList = realloc(enemiesList, sizeof(Enemy) * enemiesAlive);
 }

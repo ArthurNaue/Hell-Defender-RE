@@ -4,6 +4,7 @@
 #include "raylib.h"
 #include "animated_sprite/animated_sprite.h"
 #include "points/points.h"
+#include "tower/tower.h"
 #include "tower/tower_attack/tower_attack.h"
 
 #define ENEMY_SIZE 64
