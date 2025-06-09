@@ -9,7 +9,7 @@
 #include "dt/dt.h"
 #include "animated_sprite/animated_sprite.h"
 #include "tower/tower.h"
-#include "tower/towerAttack/towerAttack.h"
+#include "tower/tower_attack/tower_attack.h"
 #include "enemy/enemy.h"
 #include "fire_decorations/fire_decorations.h"
 
@@ -36,7 +36,6 @@ int main(void)
 	//INITIALIZE THE TOWER AND THE TOWERS ATTACK
 	Tower tower;
 	InitTower(&tower);
-	TowerAttack towerAttack;
 	InitTowerAttack(&towerAttack);
 
 	//INITIALIZE THE FIRE DECORATIONS VARIABLES
@@ -59,7 +58,6 @@ int main(void)
 		//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
 		sprintf(maxPointsText, "Max Score: %d", maxPoints);
 		//ATUALIZA O TEXTO DO COOLDOWN DO ATAQUE
-		sprintf(attackCooldownText, "Cooldown: %d", towerAttack.cooldown);
 
 		//VERIFIES CURRENT SCREEN
 		switch(currentScreen)
@@ -135,12 +133,7 @@ int main(void)
 				DrawEnemies();
 				MoveEnemies();
 
-				//DRAW AND UPDATE TOWER ATTACK POSITION AND COOLDOWN
-				UpdateAttack(&towerAttack);
-
-				//USE THE TOWER ATTACK IF PLAYER HOLDS M1
-				if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){TurnAttackOn(&towerAttack);}
-				else{TurnAttackOff(&towerAttack);}
+				UpdateTowerAttack(&towerAttack);
 
         			EndDrawing();
 			

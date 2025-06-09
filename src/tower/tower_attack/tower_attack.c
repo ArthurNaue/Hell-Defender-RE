@@ -1,7 +1,8 @@
-#include "tower/towerAttack/towerAttack.h"
+#include "tower/tower_attack/tower_attack.h"
 #include "dt/dt.h"
 
 char attackCooldownText[32];
+TowerAttack towerAttack;
 
 void InitTowerAttack(TowerAttack *towerAttack) 
 {
@@ -25,7 +26,7 @@ void DrawTowerAttack(TowerAttack towerAttack)
 	else{DrawAnimatedSprite(towerAttack.animSpriteActive);}
 }
 
-void UpdateAttack(TowerAttack *towerAttack)
+void UpdateTowerAttack(TowerAttack *towerAttack)
 {
 	if(towerAttack->cooldown>0)
 	{
@@ -37,10 +38,13 @@ void UpdateAttack(TowerAttack *towerAttack)
 		UpdateAnimatedSprite(&towerAttack->animSpriteActive);
 		UpdateAnimatedSpritePos(&towerAttack->animSpriteActive, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
 	}
-	
+
 	if(towerAttack->isAttacking==1){DrawTowerAttack(*towerAttack);}
 
 	if(towerAttack->cooldown>0){towerAttack->cooldown-= (1 * dt);}
+
+	if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){TurnAttackOn(towerAttack);}
+	else{TurnAttackOff(towerAttack);}
 
 	//GETS THE CURSOR POSITION
 	Vector2 mousePosition = GetMousePosition();

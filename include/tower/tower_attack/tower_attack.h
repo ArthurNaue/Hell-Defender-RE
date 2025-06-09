@@ -21,10 +21,13 @@ typedef struct TowerAttack
     int isAttacking;
 } TowerAttack;
 
+extern TowerAttack towerAttack;
+
 //DEFINES THE TOWER FUNCTIONS
+void CreateTowerAttack(void);
 void InitTowerAttack(TowerAttack *towerAttack);
 void DrawTowerAttack(TowerAttack towerAttack);
-void UpdateAttack(TowerAttack *towerAttack);
+void UpdateTowerAttack(TowerAttack *towerAttack);
 void TurnAttackOn(TowerAttack *towerAttack);
 void TurnAttackOff(TowerAttack *towerAttack);
 void ResetAttackCooldown(TowerAttack *towerAttack);
