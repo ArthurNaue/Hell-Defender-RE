@@ -46,8 +46,7 @@ int main(void)
 		{
 			case TITLE:
 			{
-				//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
-				sprintf(maxPointsText, "Max Score: %d", maxPoints);
+				UpdateMaxPointsText();
 
 				BeginDrawing();
 
@@ -57,14 +56,7 @@ int main(void)
 
 				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
 				
-				//VERIFIES IF PLAY GUI BUTTON WAS PRESSED
-				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY"))
-				{
-					//CHANGE SCREEN TO GAMEPLAY
-					GameplayScreen();
-				}
-
-				//VERIFIES IF EXIT GUI BUTTON WAS PRESSED
+				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 150, 200, 100}, "EXIT")){game = 0;}
 
         			EndDrawing();
@@ -86,8 +78,7 @@ int main(void)
 					TitleScreen();
 				}
 
-				//ATUALIZA O TEXTO DOS PONTOS
-				sprintf(pointsText, "Score: %d", points);
+				UpdatePointsText();
 
 				BeginDrawing();
 
