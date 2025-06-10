@@ -11,12 +11,14 @@ typedef struct FireDecoration
 	Vector2 pos;
 } FireDecoration;
 
+extern int fireDecorationCreated;
 extern int fireDecorationNumber;
-extern FireDecoration *fireDecorationList;
+extern FireDecoration *fireDecorationsList;
 
 void CreateFireDecoration(void);
 void InitFireDecoration(FireDecoration *fireDecoration, Vector2 pos);
 void UpdateFireDecorationsList(FireDecoration fire, FireDecoration **fireDecorationList);
 void DrawFireDecorations(void);
+void DeleteFireDecorations(void);
 
 #endif

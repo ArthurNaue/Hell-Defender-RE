@@ -1,17 +1,23 @@
 #include "fire_decorations/fire_decorations.h"
 
-int fireDecorationNumber = 0;
-FireDecoration *fireDecorationsList = NULL;
+int fireDecorationCreated=0;
+int fireDecorationNumber=0;
+FireDecoration *fireDecorationsList=NULL;
 
 void CreateFireDecoration(void)
 {
-	int numberOfFires = (rand() % 4) + 1;
-
-	for(int i=0; i<numberOfFires; i++)
+	if(fireDecorationCreated==0)
 	{
-		FireDecoration fire;
-		Vector2 fireDecorationPos = {(rand() % 600) + 1, (rand() % 600) + 1};
-		InitFireDecoration(&fire, fireDecorationPos);
+		int numberOfFires = (rand() % 4) + 1;
+
+		for(int i=0; i<numberOfFires; i++)
+		{
+			FireDecoration fire;
+			Vector2 fireDecorationPos = {(rand() % 600) + 1, (rand() % 600) + 1};
+			InitFireDecoration(&fire, fireDecorationPos);
+		}
+
+		fireDecorationCreated=1;
 	}
 }
 
@@ -44,5 +50,16 @@ void DrawFireDecorations(void)
 		FireDecoration *fire = &fireDecorationsList[i];
 		UpdateAnimatedSprite(&fire->animSprite);
 		DrawAnimatedSprite(fireDecorationsList[i].animSprite);
+	}
+}
+
+void DeleteFireDecorations(void)
+{
+	if(fireDecorationsList!=NULL)
+	{
+		free(fireDecorationsList);
+		fireDecorationsList = NULL;
+		fireDecorationNumber = 0;
+	       	fireDecorationCreated=0;
 	}
 }

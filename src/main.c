@@ -35,7 +35,7 @@ int main(void)
 	InitTower(&tower);	
 	InitTowerAttack(&towerAttack);
 
-	CreateFireDecoration();
+	int fireDecorationCreated=0;
 
 	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
 	int game = 1;
@@ -80,6 +80,8 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
+				CreateFireDecoration();
+
 				if(enemyCooldown<=0)
 				{
 					CreateEnemy();
@@ -87,7 +89,12 @@ int main(void)
 				}
 				else{enemyCooldown -= dt;}
 
-				if(IsKeyPressed(KEY_ESCAPE)){CheckAndUpdateMaxPoints(); currentScreen = TITLE;}
+				if(IsKeyPressed(KEY_ESCAPE))
+				{
+					DeleteFireDecorations();
+					CheckAndUpdateMaxPoints();
+				       	currentScreen = TITLE;
+				}
 
 				BeginDrawing();
 
