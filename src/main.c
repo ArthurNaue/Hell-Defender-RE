@@ -33,8 +33,6 @@ int main(void)
 	InitTower(&tower);	
 	InitTowerAttack(&towerAttack);
 
-	int fireDecorationCreated=0;
-
 	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
 	int game = 1;
 
@@ -43,17 +41,14 @@ int main(void)
 		//UPDATES THE DELTA TIME
 		UpdateDt();
 
-		//ATUALIZA O TEXTO DOS PONTOS
-		sprintf(pointsText, "Score: %d", points);
-		//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
-		sprintf(maxPointsText, "Max Score: %d", maxPoints);
-		//ATUALIZA O TEXTO DO COOLDOWN DO ATAQUE
-
 		//VERIFIES CURRENT SCREEN
 		switch(currentScreen)
 		{
 			case TITLE:
 			{
+				//ATUALIZA O TEXTO DOS PONTOS MAXIMOS
+				sprintf(maxPointsText, "Max Score: %d", maxPoints);
+
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
@@ -91,19 +86,22 @@ int main(void)
 				       	currentScreen = TITLE;
 				}
 
+				//ATUALIZA O TEXTO DOS PONTOS
+				sprintf(pointsText, "Score: %d", points);
+
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
 
-				DrawText(pointsText, 0, 0, 24, PDARKRED);
-
        				DrawFireDecorations();
-
-				DrawEnemies();
 
 				DrawTower(tower);
 				UpdateTowerAttack(&towerAttack);
 				
+				DrawEnemies();
+
+				DrawText(pointsText, 0, 0, 24, PDARKRED);
+
 				EndDrawing();
 			
 			       	break;
