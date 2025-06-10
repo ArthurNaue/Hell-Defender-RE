@@ -1,12 +1,11 @@
 #include "fire_decorations/fire_decorations.h"
 
-int fireDecorationCreated=0;
 int fireDecorationNumber=0;
 FireDecoration *fireDecorationsList=NULL;
 
 void CreateFireDecoration(void)
 {
-	if(fireDecorationCreated==0)
+	if(fireDecorationsList==NULL)
 	{
 		int numberOfFires = (rand() % 4) + 1;
 
@@ -16,8 +15,6 @@ void CreateFireDecoration(void)
 			Vector2 fireDecorationPos = {(rand() % 600) + 1, (rand() % 600) + 1};
 			InitFireDecoration(&fire, fireDecorationPos);
 		}
-
-		fireDecorationCreated=1;
 	}
 }
 
@@ -60,6 +57,5 @@ void DeleteFireDecorations(void)
 		free(fireDecorationsList);
 		fireDecorationsList = NULL;
 		fireDecorationNumber = 0;
-	       	fireDecorationCreated=0;
 	}
 }

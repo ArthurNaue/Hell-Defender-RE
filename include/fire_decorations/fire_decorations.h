@@ -11,7 +11,6 @@ typedef struct FireDecoration
 	Vector2 pos;
 } FireDecoration;
 
-extern int fireDecorationCreated;
 extern int fireDecorationNumber;
 extern FireDecoration *fireDecorationsList;
 
