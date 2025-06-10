@@ -7,6 +7,9 @@
 typedef enum GameScreen{TITLE=0, GAMEPLAY} GameScreen;
 extern GameScreen currentScreen;
 
+void TitleScreen(void);
+void GameplayScreen(void);
+
 #endif
 
 

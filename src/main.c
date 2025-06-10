@@ -61,7 +61,7 @@ int main(void)
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY"))
 				{
 					//CHANGE SCREEN TO GAMEPLAY
-					currentScreen=GAMEPLAY;
+					GameplayScreen();
 				}
 
 				//VERIFIES IF EXIT GUI BUTTON WAS PRESSED
@@ -83,7 +83,7 @@ int main(void)
 					DeleteFireDecorations();
 					DeleteEnemies();
 					CheckAndUpdateMaxPoints();
-				       	currentScreen = TITLE;
+					TitleScreen();
 				}
 
 				//ATUALIZA O TEXTO DOS PONTOS
