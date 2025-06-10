@@ -128,7 +128,7 @@ void CheckForEnemyDamage(TowerAttack *towerAttack)
 			DamageEnemy(&enemiesList[i]);
 			ResetAttackCooldown(towerAttack);
 
-			if(enemiesList[i].health<1){RemoveEnemy(i); points++;}
+			if(enemiesList[i].health<1){RemoveEnemy(i); IncreasePoints(1);}
 		}
 		if(CheckCollisionRecs(tower.rec, enemiesList[i].rec)){CheckAndUpdateMaxPoints(); currentScreen=TITLE;}
 	}

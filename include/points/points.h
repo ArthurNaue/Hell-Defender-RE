@@ -12,5 +12,7 @@ void InitPoints(void);
 void UpdatePointsText(void);
 void CheckAndUpdateMaxPoints(void);
 void UpdateMaxPointsText(void);
+void IncreasePoints(int amount);
+void DecreasePoints(int amount);
 
 #endif

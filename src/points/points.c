@@ -18,10 +18,20 @@ void UpdatePointsText(void)
 
 void CheckAndUpdateMaxPoints(void) 
 {
-    if(points > maxPoints){maxPoints = points; points = 0;}
+    if(points > maxPoints){maxPoints = points; DecreasePoints(points);}
 }
 
 void UpdateMaxPointsText(void)
 {
 	sprintf(maxPointsText, "Max Score: %d", maxPoints);
+}
+
+void IncreasePoints(int amount)
+{
+	points += amount;
+}
+
+void DecreasePoints(int amount)
+{
+	points -= amount;
 }
