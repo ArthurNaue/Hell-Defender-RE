@@ -27,8 +27,6 @@ int main(void)
 	Image tittleLetteringImg = LoadImage("assets/images/letterings/tittle_screen.png");
 	Texture2D tittleLetteringTex = LoadTextureFromImage(tittleLetteringImg);
 
-	float enemyCooldown = 1;
-
 	//INITIALIZE THE POINTS
 	InitPoints();
 
@@ -82,12 +80,8 @@ int main(void)
 			{
 				CreateFireDecoration();
 
-				if(enemyCooldown<=0)
-				{
-					CreateEnemy();
-					enemyCooldown = 5;
-				}
-				else{enemyCooldown -= dt;}
+				CreateEnemy();
+				MoveEnemies();
 
 				if(IsKeyPressed(KEY_ESCAPE))
 				{
@@ -100,15 +94,15 @@ int main(void)
 				BeginDrawing();
 
             			ClearBackground(PORANGE);
+
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 
+       				DrawFireDecorations();
+
 				DrawEnemies();
-				MoveEnemies();
 
 				DrawTower(tower);
 				UpdateTowerAttack(&towerAttack);
-
-       				DrawFireDecorations();
 				
 				EndDrawing();
 			

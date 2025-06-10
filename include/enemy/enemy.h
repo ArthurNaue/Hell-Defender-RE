@@ -10,9 +10,6 @@
 #define ENEMY_SIZE 64
 #define ENEMY_NUMBER 2
 
-//CREATES THE VARIABLES THAT CONTROLS ENEMY SPEED
-extern int speedMultiplier;
-
 //DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy 
 {
@@ -24,6 +21,8 @@ typedef struct Enemy
 	AnimatedSprite animSprite;
 } Enemy;
 
+extern int speedMultiplier;
+extern float enemyCooldown;
 extern int enemiesAlive;
 extern Enemy *enemiesList;
 

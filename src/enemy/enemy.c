@@ -6,13 +6,19 @@
 #include "screens/screens.h"
 
 int speedMultiplier;
-Enemy *enemiesList = NULL;
+float enemyCooldown=1;
 int enemiesAlive;
+Enemy *enemiesList = NULL;
 
 void CreateEnemy(void)
 {
-	Enemy *enemy = malloc(sizeof(Enemy));
-	InitEnemy(enemy);
+	if(enemyCooldown<=0)
+	{
+		Enemy *enemy = malloc(sizeof(Enemy));
+		InitEnemy(enemy);
+		enemyCooldown=5;
+	}
+	else{enemyCooldown-=dt;}
 }
 
 //FUNCTION THAT INITIALIZES ENEMY
