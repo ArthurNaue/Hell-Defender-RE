@@ -15,10 +15,7 @@
 
 int main(void)
 {
-	//WINDOW PARAMETERS
-	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
-	SetTargetFPS(60);
-	SetExitKey(KEY_NULL);
+	StartWindow();
 
 	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
