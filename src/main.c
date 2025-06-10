@@ -92,6 +92,7 @@ int main(void)
 				if(IsKeyPressed(KEY_ESCAPE))
 				{
 					DeleteFireDecorations();
+					DeleteEnemies();
 					CheckAndUpdateMaxPoints();
 				       	currentScreen = TITLE;
 				}

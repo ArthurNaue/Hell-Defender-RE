@@ -173,3 +173,13 @@ void SpawnEnemy(Enemy *enemy)
 
 	enemy->animSprite = animSprite;
 }
+
+void DeleteEnemies(void)
+{
+	if(enemiesList!=NULL)
+	{
+		free(enemiesList);
+		enemiesList=NULL;
+		enemiesAlive=0;
+	}
+}

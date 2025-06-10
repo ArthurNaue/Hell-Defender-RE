@@ -39,5 +39,6 @@ void CheckForEnemyDamage(TowerAttack *towerAttack);
 void DamageEnemy(Enemy *enemy);
 void RemoveEnemy(int index);
 void SpawnEnemy(Enemy *enemy);
+void DeleteEnemies(void);
 
 #endif
