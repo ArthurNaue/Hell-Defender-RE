@@ -52,6 +52,16 @@ int main(void)
 	
 				DrawLettering(titleLettering.tex, (Vector2){48, 100});
 
+				GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, 0x7A1C4BFF);
+				GuiSetStyle(BUTTON, BORDER_COLOR_NORMAL, 0x1B0326FF);
+				GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, 0x1B0326FF);
+				GuiSetStyle(BUTTON, BASE_COLOR_FOCUSED, 0x1B0326FF);
+				GuiSetStyle(BUTTON, BORDER_COLOR_FOCUSED, 0x1B0326FF);
+				GuiSetStyle(BUTTON, TEXT_COLOR_FOCUSED, 0xEFF9D6FF);
+				GuiSetStyle(BUTTON, BASE_COLOR_PRESSED, 0xEFF9D6FF);
+				GuiSetStyle(BUTTON, BORDER_COLOR_PRESSED, 0x1B0326FF);
+				GuiSetStyle(BUTTON, TEXT_COLOR_PRESSED, 0x1B0326FF);
+
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 150, 200, 100}, "EXIT")){game = 0;}
 
@@ -83,9 +93,10 @@ int main(void)
 				DrawFireDecorations();
 
 				DrawTower(tower);
-				UpdateTowerAttack(&towerAttack);
 				
 				DrawEnemies();
+
+				UpdateTowerAttack(&towerAttack);
 
 				DrawText(pointsText, 0, 0, 24, PDARKRED);
 
