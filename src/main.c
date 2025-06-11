@@ -47,7 +47,7 @@ int main(void)
 
 				BeginDrawing();
 
-            			ClearBackground(PORANGE);
+				ClearBackground(PORANGE);
 
 				DrawTextureV(tittleLetteringTex, (Vector2){0 + 48, 100}, WHITE);
 
@@ -56,7 +56,7 @@ int main(void)
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 150, 200, 100}, "EXIT")){game = 0;}
 
-        			EndDrawing();
+				EndDrawing();
 
 				break;
 			}
@@ -79,9 +79,9 @@ int main(void)
 
 				BeginDrawing();
 
-            			ClearBackground(PORANGE);
+				ClearBackground(PORANGE);
 
-       				DrawFireDecorations();
+				DrawFireDecorations();
 
 				DrawTower(tower);
 				UpdateTowerAttack(&towerAttack);
@@ -92,7 +92,7 @@ int main(void)
 
 				EndDrawing();
 			
-			       	break;
+				break;
 			} 
 			default: break;
 		}
