@@ -15,6 +15,7 @@ void CreateEnemy(void)
 	if(enemyCooldown<=0)
 	{
 		Enemy *enemy = malloc(sizeof(Enemy));
+		if(enemy==NULL){TraceLog(LOG_ERROR, "Create Enemy malloc failed");}
 		InitEnemy(enemy);
 		enemyCooldown=5;
 	}
@@ -58,6 +59,7 @@ void InitEnemy(Enemy *enemy)
 void UpdateEnemiesList(Enemy enemy, Enemy **enemiesList)
 {
 	*enemiesList = realloc(*enemiesList, sizeof(Enemy) * enemiesAlive);
+	if(enemiesList==NULL){TraceLog(LOG_ERROR, "Update Enemy list realloc failed");}
 	(*enemiesList)[enemiesAlive - 1] = enemy;
 }
 
@@ -151,6 +153,7 @@ void RemoveEnemy(int index)
 	if(enemiesAlive>0)
 	{
 		Enemy *tmp = realloc(enemiesList, sizeof(Enemy) * enemiesAlive);
+		if(tmp==NULL){TraceLog(LOG_ERROR, "Remove Enemy first realloc failed");}
 		enemiesList = tmp;
 	}
 	else
@@ -160,6 +163,7 @@ void RemoveEnemy(int index)
 	}
 
 	enemiesList = realloc(enemiesList, sizeof(Enemy) * enemiesAlive);
+	if(enemiesList==NULL){TraceLog(LOG_ERROR, "Remove Enemy second realloc failed");}
 }
 
 //FUNCTION THAT SPAWNS THE ENEMY
