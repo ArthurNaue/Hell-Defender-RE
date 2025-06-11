@@ -8,6 +8,7 @@
 #include "screens/screens.h"
 #include "dt/dt.h"
 #include "animated_sprite/animated_sprite.h"
+#include "letterings/letterings.h"
 #include "tower/tower.h"
 #include "tower/tower_attack/tower_attack.h"
 #include "enemy/enemy.h"
@@ -20,12 +21,10 @@ int main(void)
 	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
 
-	//INITIALIZE THE TITTLE SCREEN LETTERING
-	Image tittleLetteringImg = LoadImage("assets/images/letterings/tittle_screen.png");
-	Texture2D tittleLetteringTex = LoadTextureFromImage(tittleLetteringImg);
-
 	//INITIALIZE THE POINTS
 	InitPoints();
+
+	InitLettering(&titleLettering, LoadImage("assets/images/letterings/title_lettering.png"));
 
 	InitTower(&tower);	
 	InitTowerAttack(&towerAttack);
@@ -49,10 +48,10 @@ int main(void)
 
 				ClearBackground(PORANGE);
 
-				DrawTextureV(tittleLetteringTex, (Vector2){0 + 48, 100}, WHITE);
-
 				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
-				
+	
+				DrawLettering(titleLettering.tex, (Vector2){48, 100});
+
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 150, 200, 100}, "EXIT")){game = 0;}
 
@@ -97,6 +96,8 @@ int main(void)
 			default: break;
 		}
 	}
+
+	UnloadLetteringTex(&titleLettering.tex);
 
 	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();
