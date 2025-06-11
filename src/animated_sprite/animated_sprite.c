@@ -45,3 +45,8 @@ void SetAnimatedSpriteDir(AnimatedSprite *animatedSprite, int facingRight)
 	if(facingRight==1){animatedSprite->frameRec.width = animatedSprite->frameWidth;}
 	else{animatedSprite->frameRec.width = -animatedSprite->frameWidth;}
 }
+
+void UnloadAnimatedSpriteTex(AnimatedSprite *animatedSprite)
+{
+	UnloadTexture(animatedSprite->tex);
+}

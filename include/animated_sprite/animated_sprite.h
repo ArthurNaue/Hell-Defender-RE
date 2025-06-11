@@ -23,5 +23,6 @@ void UpdateAnimatedSprite(AnimatedSprite *animatedSprite);
 void UpdateAnimatedSpritePos(AnimatedSprite *animatedSprite, Vector2 pos);
 void DrawAnimatedSprite(AnimatedSprite animatedSprite);
 void SetAnimatedSpriteDir(AnimatedSprite *animatedSprite, int facingRight);
+void UnloadAnimatedSpriteTex(AnimatedSprite *animatedSprite);
 
 #endif

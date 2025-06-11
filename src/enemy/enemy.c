@@ -147,6 +147,8 @@ void RemoveEnemy(int index)
 {
 	if(enemiesAlive<=0){return;}
 
+	UnloadAnimatedSpriteTex(&enemiesList[index].animSprite);
+
 	enemiesList[index] = enemiesList[enemiesAlive-1];
 	enemiesAlive--;
 
@@ -188,6 +190,11 @@ void DeleteEnemies(void)
 {
 	if(enemiesList!=NULL)
 	{
+		for(int i=0; i<enemiesAlive; i++)
+		{
+			UnloadAnimatedSpriteTex(&enemiesList[i].animSprite);
+		}
+
 		free(enemiesList);
 		enemiesList=NULL;
 		enemiesAlive=0;
