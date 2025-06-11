@@ -1,7 +1,5 @@
 #include <time.h>
 #include "raylib.h"
-#define RAYGUI_IMPLEMENTATION
-#include "raygui/raygui.h"
 #include "window_config/window_config.h"
 #include "color_palette/color_palette.h"
 #include "points/points.h"
@@ -9,6 +7,7 @@
 #include "dt/dt.h"
 #include "animated_sprite/animated_sprite.h"
 #include "letterings/letterings.h"
+#include "buttons/buttons.h"
 #include "tower/tower.h"
 #include "tower/tower_attack/tower_attack.h"
 #include "enemy/enemy.h"
@@ -51,16 +50,8 @@ int main(void)
 				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
 	
 				DrawLettering(titleLettering.tex, (Vector2){48, 100});
-
-				GuiSetStyle(BUTTON, BASE_COLOR_NORMAL, 0x7A1C4BFF);
-				GuiSetStyle(BUTTON, BORDER_COLOR_NORMAL, 0x1B0326FF);
-				GuiSetStyle(BUTTON, TEXT_COLOR_NORMAL, 0x1B0326FF);
-				GuiSetStyle(BUTTON, BASE_COLOR_FOCUSED, 0x1B0326FF);
-				GuiSetStyle(BUTTON, BORDER_COLOR_FOCUSED, 0x1B0326FF);
-				GuiSetStyle(BUTTON, TEXT_COLOR_FOCUSED, 0xEFF9D6FF);
-				GuiSetStyle(BUTTON, BASE_COLOR_PRESSED, 0xEFF9D6FF);
-				GuiSetStyle(BUTTON, BORDER_COLOR_PRESSED, 0x1B0326FF);
-				GuiSetStyle(BUTTON, TEXT_COLOR_PRESSED, 0x1B0326FF);
+	
+				InitButtonStyle();
 
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
 				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 150, 200, 100}, "EXIT")){game = 0;}
