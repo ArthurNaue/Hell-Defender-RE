@@ -54,6 +54,11 @@ void DeleteFireDecorations(void)
 {
 	if(fireDecorationsList!=NULL)
 	{
+		for(int i=0; i<fireDecorationNumber; i++)
+		{
+			UnloadAnimatedSpriteTex(&fireDecorationsList[i].animSprite);
+		}
+
 		free(fireDecorationsList);
 		fireDecorationsList = NULL;
 		fireDecorationNumber = 0;
