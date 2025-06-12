@@ -45,7 +45,7 @@ void InitEnemy(Enemy *enemy)
 
 	//DEFINES ENEMY PARAMETERS
     	enemy->size = ENEMY_SIZE;
-    	enemy->rec = (Rectangle){enemy->pos.x, enemy->pos.y, enemy->size, enemy->size};
+    	enemy->rec = (Rectangle){enemy->pos.x + enemy->size/4, enemy->pos.y + enemy->size/4, enemy->size/2, enemy->size/2};
 
 	UpdateEnemySpeed(enemy);
 
@@ -113,8 +113,8 @@ void MoveEnemies(void)
 //FUNCTION THAT UPDATES THE ENEMY RECTANGLE
 void UpdateEnemyRec(Enemy *enemy)
 {
-	enemy->rec.x = enemy->pos.x;
-	enemy->rec.y = enemy->pos.y;
+	enemy->rec.x = enemy->pos.x + enemy->size/4;
+	enemy->rec.y = enemy->pos.y + enemy->size/4;
 }
 
 void CheckForEnemyDamage(TowerAttack *towerAttack)
@@ -128,7 +128,13 @@ void CheckForEnemyDamage(TowerAttack *towerAttack)
 
 			if(enemiesList[i].health<1){RemoveEnemy(i); IncreasePoints(1);}
 		}
-		if(CheckCollisionRecs(tower.rec, enemiesList[i].rec)){CheckAndUpdateMaxPoints(); currentScreen=TITLE;}
+		if(CheckCollisionRecs(tower.rec, enemiesList[i].rec))
+		{
+			CheckAndUpdateMaxPoints(); 
+			DeleteFireDecorations();
+			DeleteEnemies(); 
+			currentScreen=TITLE;
+		}
 	}
 }
 

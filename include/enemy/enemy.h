@@ -6,6 +6,7 @@
 #include "points/points.h"
 #include "tower/tower.h"
 #include "tower/tower_attack/tower_attack.h"
+#include "fire_decorations/fire_decorations.h"
 
 #define ENEMY_SIZE 64
 #define ENEMY_NUMBER 2
