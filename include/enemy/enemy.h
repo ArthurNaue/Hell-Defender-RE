@@ -9,7 +9,7 @@
 #include "fire_decorations/fire_decorations.h"
 
 #define ENEMY_SIZE 64
-#define ENEMY_NUMBER 2
+#define ENEMY_NUMBER 3
 
 //DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy 

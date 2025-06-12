@@ -183,6 +183,7 @@ void SpawnEnemy(Enemy *enemy)
 	{
 		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=0.5;  break;}
 		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=0.25;  break;}
+		case 3:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/spider.png"), 8, 0.1f); enemy->health=2; enemy->speed=0.75;  break;}
 	}
 
 	enemy->animSprite = animSprite;
