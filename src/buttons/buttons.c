@@ -15,3 +15,9 @@ void InitButtonStyle(void)
 	GuiSetStyle(BUTTON, BORDER_COLOR_PRESSED, 0x1B0326FF);
 	GuiSetStyle(BUTTON, TEXT_COLOR_PRESSED, 0x1B0326FF);
 }
+
+void DrawTitleScreenButtons(void)
+{
+	if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
+	if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 170, 200, 100}, "EXIT")){game=0;}
+}

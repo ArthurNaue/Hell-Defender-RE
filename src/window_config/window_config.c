@@ -1,5 +1,7 @@
 #include "window_config/window_config.h"
 
+int game = 1;
+
 void StartWindow(void)
 {
 	InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);

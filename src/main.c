@@ -28,9 +28,6 @@ int main(void)
 	InitTower(&tower);	
 	InitTowerAttack(&towerAttack);
 
-	//INITIALIZE THE VARIABLE THAT CONTROLS THE GAME
-	int game = 1;
-
 	while (game==1)
 	{
 		//UPDATES THE DELTA TIME
@@ -53,8 +50,7 @@ int main(void)
 	
 				InitButtonStyle();
 
-				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
-				if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 170, 200, 100}, "EXIT")){game = 0;}
+				DrawTitleScreenButtons();
 
 				EndDrawing();
 

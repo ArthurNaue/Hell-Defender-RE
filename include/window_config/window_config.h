@@ -8,6 +8,8 @@
 #define SCREEN_HEIGHT 600
 #define WINDOW_TITLE "HELL DEFENDER"
 
+extern int game;
+
 void StartWindow(void);
 
 #endif
