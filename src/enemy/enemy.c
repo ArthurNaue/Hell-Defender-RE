@@ -27,21 +27,17 @@ void InitEnemy(Enemy *enemy)
 {
 	enemiesAlive++;
 
-	//GENERATES A RANDOM NUMBER BETWEEN 1 AND 8 TO DEFINE WHICH POSITION SHOULD THE ENEMY SPAWN
-	int randomPos = (rand() % 8) + 1;
+	//GENERATES A RANDOM NUMBER BETWEEN 1 AND 4 TO DEFINE WHICH POSITION SHOULD THE ENEMY SPAWN
+	int randomPos = (rand() % 4) + 1;
 
 	//VERIFIES WHICH NUMBER WAS GENERATED
 	switch(randomPos)
 	{
 		//DEFINES ENEMY POSITION BASED ON THE GENERATED NUMBER
-		case 1:{enemy->pos = (Vector2){0, 0}; break;}
-		case 2:{enemy->pos = (Vector2){0, SCREEN_HEIGHT}; break;}
-		case 3:{enemy->pos = (Vector2){0, SCREEN_HEIGHT/2}; break;}
-		case 4:{enemy->pos = (Vector2){SCREEN_WIDTH, 0}; break;}
-		case 5:{enemy->pos = (Vector2){SCREEN_WIDTH/2, 0}; break;}
-		case 6:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT/2}; break;}
-		case 7:{enemy->pos = (Vector2){SCREEN_WIDTH/2, SCREEN_HEIGHT}; break;}
-		case 8:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT}; break;}
+		case 1:{enemy->pos = (Vector2){-ENEMY_SIZE, -ENEMY_SIZE}; break;}
+		case 2:{enemy->pos = (Vector2){-ENEMY_SIZE, SCREEN_HEIGHT + ENEMY_SIZE}; break;}
+		case 3:{enemy->pos = (Vector2){SCREEN_WIDTH + ENEMY_SIZE, -ENEMY_SIZE}; break;}
+		case 4:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT}; break;}
 		default: break;
     	}
 
