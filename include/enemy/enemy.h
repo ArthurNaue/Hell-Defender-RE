@@ -26,19 +26,27 @@ extern int speedMultiplier;
 extern float enemyCooldown;
 extern int enemiesAlive;
 extern Enemy *enemiesList;
+extern Enemy boss;
 
 //DEFINES THE ENEMY FUNCTIONS
 void CreateEnemy(void);
+void CreateBoss(Enemy *boss);
 void InitEnemy(Enemy *enemy);
+void InitBoss(Enemy *boss);
 void UpdateEnemiesList(Enemy enemy, Enemy **enemiesList);
 void DrawEnemies(void);
+void DrawBoss(Enemy boss);
 void UpdateEnemySpeed(Enemy *enemy);
 void MoveEnemies(void);
+void MoveBoss(Enemy *boss);
 void UpdateEnemyRec(Enemy *enemy);
 void CheckForEnemyDamage(TowerAttack *towerAttack);
+void CheckForBossDamage(Enemy *boss, TowerAttack *towerAttack);
 void DamageEnemy(Enemy *enemy);
 void RemoveEnemy(int index);
 void SpawnEnemy(Enemy *enemy);
+void SpawnBoss(Enemy *boss);
 void DeleteEnemies(void);
+void DeleteBoss(Enemy *boss);
 
 #endif

@@ -60,6 +60,9 @@ int main(void)
 			{
 				CreateFireDecoration();
 
+				CreateBoss(&boss);
+				MoveBoss(&boss);
+
 				CreateEnemy();
 				MoveEnemies();
 
@@ -82,6 +85,7 @@ int main(void)
 				DrawTower(tower);
 				
 				DrawEnemies();
+				DrawBoss(boss);
 
 				UpdateTowerAttack(&towerAttack);
 

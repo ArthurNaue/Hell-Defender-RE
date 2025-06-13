@@ -9,6 +9,7 @@ int speedMultiplier;
 float enemyCooldown=1;
 int enemiesAlive;
 Enemy *enemiesList = NULL;
+Enemy boss;
 
 void CreateEnemy(void)
 {
@@ -20,6 +21,14 @@ void CreateEnemy(void)
 		enemyCooldown=5;
 	}
 	else{enemyCooldown-=dt;}
+}
+
+void CreateBoss(Enemy *boss)
+{
+	if(points % 15 == 0 && points!=0 && boss->health<=0)
+	{
+		InitBoss(boss);
+	}
 }
 
 //FUNCTION THAT INITIALIZES ENEMY
@@ -52,6 +61,27 @@ void InitEnemy(Enemy *enemy)
 	UpdateEnemiesList(*enemy, &enemiesList);
 }
 
+void InitBoss(Enemy *boss)
+{
+	int randomPos = (rand() % 4) + 1;
+
+	switch(randomPos)
+	{
+		case 1:{boss->pos = (Vector2){SCREEN_WIDTH/2 - (ENEMY_SIZE/2), -ENEMY_SIZE}; break;}
+		case 2:{boss->pos = (Vector2){SCREEN_WIDTH/2 - (ENEMY_SIZE/2), SCREEN_HEIGHT + ENEMY_SIZE}; break;}
+		case 3:{boss->pos = (Vector2){-ENEMY_SIZE, SCREEN_HEIGHT/2 - (ENEMY_SIZE/2)}; break;}
+		case 4:{boss->pos = (Vector2){SCREEN_HEIGHT + ENEMY_SIZE, SCREEN_HEIGHT/2 - (ENEMY_SIZE/2)}; break;}
+		default: break;
+	}
+
+	SpawnBoss(boss);
+
+	boss->size = ENEMY_SIZE;
+	boss->rec = (Rectangle){boss->pos.x + boss->size/4, boss->pos.y + boss->size/4, boss->size/2, boss->size/2};
+
+	UpdateEnemySpeed(boss);
+}
+
 void UpdateEnemiesList(Enemy enemy, Enemy **enemiesList)
 {
 	*enemiesList = realloc(*enemiesList, sizeof(Enemy) * enemiesAlive);
@@ -68,6 +98,11 @@ void DrawEnemies(void)
 	{
 		DrawAnimatedSprite(enemiesList[i].animSprite);
 	}
+}
+
+void DrawBoss(Enemy boss)
+{
+	DrawAnimatedSprite(boss.animSprite);
 }
 
 //FUNCTION THAT UPDATES THE ENEMY SPEED
@@ -110,6 +145,28 @@ void MoveEnemies(void)
 	CheckForEnemyDamage(&towerAttack);
 }
 
+void MoveBoss(Enemy *boss)
+{
+	Vector2 screenCenter = {SCREEN_WIDTH/2, SCREEN_HEIGHT/2};
+
+	float distanceX = screenCenter.x - boss->pos.x;
+	float distanceY = screenCenter.y - boss->pos.y;
+	float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
+
+	boss->pos.x += (distanceX / distance) * boss->speed;
+	boss->pos.y += (distanceY / distance) * boss->speed;
+
+	UpdateEnemyRec(boss);
+
+	if((distanceX/distance)>0){SetAnimatedSpriteDir(&boss->animSprite, 1);}
+	else{SetAnimatedSpriteDir(&boss->animSprite, 0);}
+
+	UpdateAnimatedSprite(&boss->animSprite);
+	UpdateAnimatedSpritePos(&boss->animSprite, boss->pos);
+
+	CheckForBossDamage(boss, &towerAttack);
+}
+
 //FUNCTION THAT UPDATES THE ENEMY RECTANGLE
 void UpdateEnemyRec(Enemy *enemy)
 {
@@ -135,6 +192,24 @@ void CheckForEnemyDamage(TowerAttack *towerAttack)
 			DeleteEnemies(); 
 			currentScreen=TITLE;
 		}
+	}
+}
+
+void CheckForBossDamage(Enemy *boss, TowerAttack *towerAttack)
+{
+	if(CheckCollisionRecs(boss->rec, towerAttack->rec) && towerAttack->isAttacking==1 && towerAttack->cooldown<=0)
+	{
+		DamageEnemy(boss);
+		ResetAttackCooldown(towerAttack);
+
+		if(boss->health<1){DeleteBoss(boss); IncreasePoints(1);}
+	}
+	if(CheckCollisionRecs(boss->rec, tower.rec))
+	{
+		CheckAndUpdateMaxPoints();
+		DeleteFireDecorations();
+		DeleteBoss(boss);
+		currentScreen=TITLE;
 	}
 }
 
@@ -173,10 +248,10 @@ void RemoveEnemy(int index)
 //FUNCTION THAT SPAWNS THE ENEMY
 void SpawnEnemy(Enemy *enemy)
 {
+	AnimatedSprite animSprite;
+
 	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
 	int iChosenEnemy = (rand() % ENEMY_NUMBER) + 1;
-
-	AnimatedSprite animSprite;
 
 	//VERIFIES WHICH ENEMY WAS CHOSEN
 	switch(iChosenEnemy)
@@ -187,6 +262,17 @@ void SpawnEnemy(Enemy *enemy)
 	}
 
 	enemy->animSprite = animSprite;
+}
+
+void SpawnBoss(Enemy *boss)
+{
+	AnimatedSprite animSprite;
+
+	InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/eye_of_truth.png"), 2, 0.2f);
+	boss->health = 5;
+	boss->speed = 0.10;
+
+	boss->animSprite = animSprite;
 }
 
 void DeleteEnemies(void)
@@ -201,5 +287,14 @@ void DeleteEnemies(void)
 		free(enemiesList);
 		enemiesList=NULL;
 		enemiesAlive=0;
+	}
+}
+
+void DeleteBoss(Enemy *boss)
+{
+	if(boss!=NULL)
+	{
+		UnloadAnimatedSpriteTex(&boss->animSprite);
+		*boss = (Enemy){0};
 	}
 }
