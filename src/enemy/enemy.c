@@ -10,6 +10,7 @@ float enemyCooldown=1;
 int enemiesAlive;
 Enemy *enemiesList = NULL;
 Enemy boss;
+char bossHealthText[32];
 
 void CreateEnemy(void)
 {
@@ -18,7 +19,7 @@ void CreateEnemy(void)
 		Enemy *enemy = malloc(sizeof(Enemy));
 		if(enemy==NULL){TraceLog(LOG_ERROR, "Create Enemy malloc failed");}
 		InitEnemy(enemy);
-		enemyCooldown=5;
+		enemyCooldown=3;
 	}
 	else{enemyCooldown-=dt;}
 }
@@ -42,10 +43,13 @@ void InitEnemy(Enemy *enemy)
 	//VERIFIES WHICH NUMBER WAS GENERATED
 	switch(randomPos)
 	{
-		//DEFINES ENEMY POSITION BASED ON THE GENERATED NUMBER
+		//TOP LEFT CORNER
 		case 1:{enemy->pos = (Vector2){-ENEMY_SIZE, -ENEMY_SIZE}; break;}
-		case 2:{enemy->pos = (Vector2){-ENEMY_SIZE, SCREEN_HEIGHT + ENEMY_SIZE}; break;}
-		case 3:{enemy->pos = (Vector2){SCREEN_WIDTH + ENEMY_SIZE, -ENEMY_SIZE}; break;}
+		//BOTTOM LEFT CORNER
+		case 2:{enemy->pos = (Vector2){-ENEMY_SIZE, SCREEN_HEIGHT}; break;}
+		//TOP RIGHT CORNER
+		case 3:{enemy->pos = (Vector2){SCREEN_WIDTH, -ENEMY_SIZE}; break;}
+		//BOTTOM RIGHT CORNER
 		case 4:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT}; break;}
 		default: break;
     	}
@@ -102,6 +106,12 @@ void DrawEnemies(void)
 
 void DrawBoss(Enemy boss)
 {
+	if(boss.health>0)
+	{
+		sprintf(bossHealthText, "Boss Health: %d", boss.health);
+		DrawText(bossHealthText, SCREEN_WIDTH/2 - 60, SCREEN_HEIGHT/3 - 12, 24, PDARKRED);
+	}
+
 	DrawAnimatedSprite(boss.animSprite);
 }
 
@@ -250,15 +260,22 @@ void SpawnEnemy(Enemy *enemy)
 {
 	AnimatedSprite animSprite;
 
+	int enemyNumber;
+	if(points>=0 && points<=10){enemyNumber=1;}
+	else if(points>=11 && points<=20){enemyNumber=2;}
+	else if(points>=21 && points<=30){enemyNumber=3;}
+	else{enemyNumber=3;}
+
 	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
-	int iChosenEnemy = (rand() % ENEMY_NUMBER) + 1;
+	int chosenEnemy = (rand() % enemyNumber) + 1;
 
 	//VERIFIES WHICH ENEMY WAS CHOSEN
-	switch(iChosenEnemy)
+	switch(chosenEnemy)
 	{
 		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=0.5;  break;}
 		case 2:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/skeleton.png"), 5, 0.15f); enemy->health=2; enemy->speed=0.25;  break;}
 		case 3:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/spider.png"), 8, 0.1f); enemy->health=2; enemy->speed=0.75;  break;}
+		default: break;
 	}
 
 	enemy->animSprite = animSprite;
@@ -268,9 +285,30 @@ void SpawnBoss(Enemy *boss)
 {
 	AnimatedSprite animSprite;
 
-	InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/eye_of_truth.png"), 2, 0.2f);
-	boss->health = 5;
-	boss->speed = 0.10;
+	int bossNumber;
+	if(points>=15 && points<=29){bossNumber=1;}
+	else if(points>=30 && points<=44){bossNumber=2;}
+	else{bossNumber=2;}
+
+	int chosenBoss = (rand() % bossNumber) + 1;
+	switch(chosenBoss)
+	{
+		case 1:
+			{
+				InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/eye_of_truth.png"), 2, 0.4f);
+				boss->health = 10;
+				boss->speed = 0.2f;
+				break;
+			}
+		case 2:
+			{
+				InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/reaper.png"), 1, 0.0f);
+				boss->health = 5;
+				boss->speed = 0.4f;
+				break;
+			}
+		default: break;
+	}
 
 	boss->animSprite = animSprite;
 }

@@ -7,9 +7,9 @@
 #include "tower/tower.h"
 #include "tower/tower_attack/tower_attack.h"
 #include "fire_decorations/fire_decorations.h"
+#include "color_palette/color_palette.h"
 
 #define ENEMY_SIZE 64
-#define ENEMY_NUMBER 3
 
 //DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy 
@@ -27,6 +27,7 @@ extern float enemyCooldown;
 extern int enemiesAlive;
 extern Enemy *enemiesList;
 extern Enemy boss;
+extern char bossHealthText[32];
 
 //DEFINES THE ENEMY FUNCTIONS
 void CreateEnemy(void);
