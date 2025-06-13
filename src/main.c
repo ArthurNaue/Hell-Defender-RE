@@ -38,6 +38,8 @@ int main(void)
 		{
 			case TITLE:
 			{
+				ShowCursor();
+
 				UpdateMaxPointsText();
 
 				BeginDrawing();
