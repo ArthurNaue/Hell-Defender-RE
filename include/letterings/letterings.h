@@ -1,5 +1,5 @@
 #ifndef LETTERING_H
-#define LETTERING
+#define LETTERING_H
 
 #include "raylib.h"
 
