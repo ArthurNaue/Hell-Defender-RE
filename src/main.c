@@ -16,6 +16,10 @@
 int main(void)
 {
 	StartWindow();
+	InitAudioDevice();
+
+	Music backgroundMusic = LoadMusicStream("assets/sounds/background_music.wav");
+	PlayMusicStream(backgroundMusic);
 
 	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
@@ -30,6 +34,8 @@ int main(void)
 
 	while (game==1)
 	{
+		UpdateMusicStream(backgroundMusic);
+
 		//UPDATES THE DELTA TIME
 		UpdateDt();
 
@@ -99,6 +105,9 @@ int main(void)
 	}
 
 	UnloadLetteringTex(&titleLettering.tex);
+
+	UnloadMusicStream(backgroundMuisc);
+	CloseAudioDevice();
 
 	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();

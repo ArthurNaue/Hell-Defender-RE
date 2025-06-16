@@ -49,8 +49,8 @@ void DrawPoints(Vector2 pos)
 	}
 	else
 	{
-		DrawRectangle(pos.x, pos.y, 216, 26, PRED);
-		DrawRectangleLines(pos.x, pos.y, 216, 26, PDARKRED);
+		DrawRectangle(pos.x, pos.y, 146, 26, PRED);
+		DrawRectangleLines(pos.x, pos.y, 146, 26, PDARKRED);
 		DrawText(pointsText, pos.x + 24, pos.y + 1, 24, PDARKRED);
 	}
 }
