@@ -40,8 +40,6 @@ int main(void)
 			{
 				ShowCursor();
 
-				UpdateMaxPointsText();
-
 				CreateFireDecoration();
 
 				BeginDrawing();
@@ -49,14 +47,14 @@ int main(void)
 				ClearBackground(PORANGE);
 
 				DrawFireDecorations();
-
-				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
 	
 				DrawLettering(titleLettering.tex, (Vector2){48, 100});
 	
 				InitButtonStyle();
 
 				DrawTitleScreenButtons();
+
+				DrawPoints((Vector2){5, 5});
 
 				EndDrawing();
 
@@ -79,12 +77,9 @@ int main(void)
 					TitleScreen();
 				}
 
-				UpdatePointsText();
-
 				BeginDrawing();
 
 				ClearBackground(PORANGE);
-
 
 				DrawTower(tower);
 				
@@ -93,7 +88,7 @@ int main(void)
 
 				UpdateTowerAttack(&towerAttack);
 
-				DrawText(pointsText, 0, 0, 24, PDARKRED);
+				DrawPoints((Vector2){5, 5});
 
 				EndDrawing();
 			
