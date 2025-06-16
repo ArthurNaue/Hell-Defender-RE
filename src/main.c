@@ -8,6 +8,7 @@
 #include "animated_sprite/animated_sprite.h"
 #include "letterings/letterings.h"
 #include "buttons/buttons.h"
+#include "sounds/sounds.h"
 #include "tower/tower.h"
 #include "tower/tower_attack/tower_attack.h"
 #include "enemy/enemy.h"
@@ -18,8 +19,8 @@ int main(void)
 	StartWindow();
 	InitAudioDevice();
 
-	Music backgroundMusic = LoadMusicStream("assets/sounds/background_music.wav");
-	PlayMusicStream(backgroundMusic);
+	CreateSounds();
+	StartMusic();
 
 	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
@@ -34,7 +35,7 @@ int main(void)
 
 	while (game==1)
 	{
-		UpdateMusicStream(backgroundMusic);
+		UpdateMusic();
 
 		//UPDATES THE DELTA TIME
 		UpdateDt();
@@ -106,7 +107,8 @@ int main(void)
 
 	UnloadLetteringTex(&titleLettering.tex);
 
-	UnloadMusicStream(backgroundMuisc);
+	UnloadSounds();
+
 	CloseAudioDevice();
 
 	//CLOSE WINDOW AND FINISH THE GAME
