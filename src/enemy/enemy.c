@@ -32,31 +32,23 @@ void CreateBoss(Enemy *boss)
 	}
 }
 
-//FUNCTION THAT INITIALIZES ENEMY
 void InitEnemy(Enemy *enemy) 
 {
 	enemiesAlive++;
 
-	//GENERATES A RANDOM NUMBER BETWEEN 1 AND 4 TO DEFINE WHICH POSITION SHOULD THE ENEMY SPAWN
 	int randomPos = (rand() % 4) + 1;
 
-	//VERIFIES WHICH NUMBER WAS GENERATED
 	switch(randomPos)
 	{
-		//TOP LEFT CORNER
 		case 1:{enemy->pos = (Vector2){-ENEMY_SIZE, -ENEMY_SIZE}; break;}
-		//BOTTOM LEFT CORNER
 		case 2:{enemy->pos = (Vector2){-ENEMY_SIZE, SCREEN_HEIGHT}; break;}
-		//TOP RIGHT CORNER
 		case 3:{enemy->pos = (Vector2){SCREEN_WIDTH, -ENEMY_SIZE}; break;}
-		//BOTTOM RIGHT CORNER
 		case 4:{enemy->pos = (Vector2){SCREEN_WIDTH, SCREEN_HEIGHT}; break;}
 		default: break;
     	}
 
 	SpawnEnemy(enemy);
 
-	//DEFINES ENEMY PARAMETERS
     	enemy->size = ENEMY_SIZE;
     	enemy->rec = (Rectangle){enemy->pos.x + enemy->size/4, enemy->pos.y + enemy->size/4, enemy->size/2, enemy->size/2};
 
@@ -93,7 +85,6 @@ void UpdateEnemiesList(Enemy enemy, Enemy **enemiesList)
 	(*enemiesList)[enemiesAlive - 1] = enemy;
 }
 
-//FUNCTION THAT DRAWS THE ENEMY
 void DrawEnemies(void)
 {
 	if(enemiesList==NULL){return;}
@@ -115,34 +106,26 @@ void DrawBoss(Enemy boss)
 	DrawAnimatedSprite(boss.animSprite);
 }
 
-//FUNCTION THAT UPDATES THE ENEMY SPEED
 void UpdateEnemySpeed(Enemy *enemy)
 {
 	speedMultiplier = 1 + (points/100);
-	//MULTIPLY THE ENEMY SPEED BY THE NUMBER OF POINTS
 	enemy->speed *= speedMultiplier;
 }
 
-//FUNCTION THAT MOVES THE ENEMY
 void MoveEnemies(void)
 {
-	//CREATES THE POSITION OF THE SCREEN CENTER
 	Vector2 screenCenter = {SCREEN_WIDTH/2, SCREEN_HEIGHT/2};
 
 	for(int i=0; i<enemiesAlive; i++)
 	{
 		Enemy *enemy = &enemiesList[i];
-		//GET THE DISTANCE BETWEEN THE ENEMY AND THE TOWER
 		float distanceX = screenCenter.x  - enemy->pos.x;
 		float distanceY = screenCenter.y - enemy->pos.y;
-		//APPLY PITAGORAS TO PREVENT FASTER WALKING IN DIAGONALS
 		float distance = sqrtf(distanceX*distanceX + distanceY*distanceY);
 
-		//ADDS THE DIRECTION THE ENEMY SHOULD FOLLOW TO THE ENEMYS POSITION
 		enemy->pos.x += (distanceX / distance) * enemy->speed;
 		enemy->pos.y += (distanceY / distance) * enemy->speed;
 
-		//UPDATED THE ENEMY RECTANGLE TO FOLLOW ENEMYS POSITION
 		UpdateEnemyRec(enemy);
 	
 		if((distanceX/distance)>0){SetAnimatedSpriteDir(&enemy->animSprite, 1);}
@@ -177,7 +160,6 @@ void MoveBoss(Enemy *boss)
 	CheckForBossDamage(boss, &towerAttack);
 }
 
-//FUNCTION THAT UPDATES THE ENEMY RECTANGLE
 void UpdateEnemyRec(Enemy *enemy)
 {
 	enemy->rec.x = enemy->pos.x + enemy->size/4;
@@ -225,10 +207,8 @@ void CheckForBossDamage(Enemy *boss, TowerAttack *towerAttack)
 	}
 }
 
-//FUNCTION THAT DAMAGES THE ENEMY
 void DamageEnemy(Enemy *enemy)
 {
-	//REDUCES PLAYER HEALTH AND KILLS ENEMY IF BELLOW ZERO
 	enemy->health -= 1;
 }
 
@@ -257,7 +237,6 @@ void RemoveEnemy(int index)
 	if(enemiesList==NULL){TraceLog(LOG_ERROR, "Remove Enemy second realloc failed");}
 }
 
-//FUNCTION THAT SPAWNS THE ENEMY
 void SpawnEnemy(Enemy *enemy)
 {
 	AnimatedSprite animSprite;
@@ -268,10 +247,8 @@ void SpawnEnemy(Enemy *enemy)
 	else if(points>=21 && points<=30){enemyNumber=3;}
 	else{enemyNumber=3;}
 
-	//GENERATES A RANDOM NUMBER BETWEEN 1 AND THE NUMBER OF ENEMIES CREATED TO VERIFY WHICH ENEMY WILL SPAWN
 	int chosenEnemy = (rand() % enemyNumber) + 1;
 
-	//VERIFIES WHICH ENEMY WAS CHOSEN
 	switch(chosenEnemy)
 	{
 		case 1:{InitAnimatedSprite(&animSprite, LoadImage("assets/images/enemies/ghost.png"), 4, 0.2f); enemy->health=1; enemy->speed=0.5;  break;}

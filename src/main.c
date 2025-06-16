@@ -22,10 +22,8 @@ int main(void)
 	CreateSounds();
 	StartMusic();
 
-	//RANDOMIZE RANDOM SEED
 	srand(time(NULL));
 
-	//INITIALIZE THE POINTS
 	InitPoints();
 
 	InitLettering(&titleLettering, LoadImage("assets/images/letterings/title_lettering.png"));
@@ -37,10 +35,8 @@ int main(void)
 	{
 		UpdateMusic();
 
-		//UPDATES THE DELTA TIME
 		UpdateDt();
 
-		//VERIFIES CURRENT SCREEN
 		switch(currentScreen)
 		{
 			case TITLE:
@@ -111,7 +107,6 @@ int main(void)
 
 	CloseAudioDevice();
 
-	//CLOSE WINDOW AND FINISH THE GAME
 	CloseWindow();
 	return 0;
 }

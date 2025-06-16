@@ -12,7 +12,6 @@
 
 #define ENEMY_SIZE 64
 
-//DEFINES THE ENEMY STRUCTURE
 typedef struct Enemy 
 {
 	int health;
@@ -30,7 +29,6 @@ extern Enemy *enemiesList;
 extern Enemy boss;
 extern char bossHealthText[32];
 
-//DEFINES THE ENEMY FUNCTIONS
 void CreateEnemy(void);
 void CreateBoss(Enemy *boss);
 void InitEnemy(Enemy *enemy);

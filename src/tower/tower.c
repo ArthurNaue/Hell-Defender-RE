@@ -2,10 +2,8 @@
 
 Tower tower;
 
-//FUNCTION TO INITIALIZE TOWER
 void InitTower(Tower *tower) 
 {
-	//DEFINES TOWER PARAMETERS
 	tower->pos = (Vector2){300 - (TOWER_SIZE/2), 300 - (TOWER_SIZE/2)};
 	tower->color = GREEN;
 	tower->rec = (Rectangle){tower->pos.x + 24, tower->pos.y + 16,  78, 108};
@@ -15,9 +13,7 @@ void InitTower(Tower *tower)
 	UnloadImage(tower->img);
 }
 
-//FUNCTION TO DRAW TOWER
 void DrawTower(Tower tower) 
 {
-	//DRAW TOWERS TEXTURE
 	DrawTextureV(tower.tex, tower.pos, WHITE);
 }

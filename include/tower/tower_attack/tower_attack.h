@@ -8,7 +8,6 @@
 #include "animated_sprite/animated_sprite.h"
 #include "tower/tower.h"
 
-//DEFINES THE TOWER STRUCTURE
 typedef struct TowerAttack 
 {
     float size;
@@ -21,7 +20,6 @@ typedef struct TowerAttack
 
 extern TowerAttack towerAttack;
 
-//DEFINES THE TOWER FUNCTIONS
 void CreateTowerAttack(void);
 void InitTowerAttack(TowerAttack *towerAttack);
 void DrawTowerAttack(TowerAttack towerAttack);

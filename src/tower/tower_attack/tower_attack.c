@@ -45,10 +45,8 @@ void UpdateTowerAttack(TowerAttack *towerAttack)
 	if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){TurnAttackOn(towerAttack);}
 	else{TurnAttackOff(towerAttack);}
 
-	//GETS THE CURSOR POSITION
 	Vector2 mousePosition = GetMousePosition();
 
-	//UPDATES TOWER ATTACK RECTANGLE
 	towerAttack->rec.x = mousePosition.x - towerAttack->size/4;
 	towerAttack->rec.y = mousePosition.y - towerAttack->size/4;
 }
