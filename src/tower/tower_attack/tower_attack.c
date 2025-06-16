@@ -14,7 +14,7 @@ void InitTowerAttack(TowerAttack *towerAttack)
 	towerAttack->animSpriteUnnactive = animSpriteUnnactive;
 
 	towerAttack->size = TOWERATTACK_SIZE;
-	towerAttack->rec = (Rectangle){0, 0, towerAttack->size, towerAttack->size};
+	towerAttack->rec = (Rectangle){0, 0, towerAttack->size/2, towerAttack->size/2};
 	towerAttack->cooldown = TOWERATTACK_COOLDOWN;
 	towerAttack->isAttacking = 0;
 }
@@ -30,12 +30,12 @@ void UpdateTowerAttack(TowerAttack *towerAttack)
 	if(towerAttack->cooldown>0)
 	{
 		UpdateAnimatedSprite(&towerAttack->animSpriteUnnactive);
-		UpdateAnimatedSpritePos(&towerAttack->animSpriteUnnactive, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+		UpdateAnimatedSpritePos(&towerAttack->animSpriteUnnactive, (Vector2){towerAttack->rec.x - towerAttack->size/4, towerAttack->rec.y - towerAttack->size/4});
 	}
 	else
 	{
 		UpdateAnimatedSprite(&towerAttack->animSpriteActive);
-		UpdateAnimatedSpritePos(&towerAttack->animSpriteActive, (Vector2){towerAttack->rec.x, towerAttack->rec.y});
+		UpdateAnimatedSpritePos(&towerAttack->animSpriteActive, (Vector2){towerAttack->rec.x - towerAttack->size/4, towerAttack->rec.y - towerAttack->size/4});
 	}
 
 	if(towerAttack->isAttacking==1){DrawTowerAttack(*towerAttack);}
@@ -49,8 +49,8 @@ void UpdateTowerAttack(TowerAttack *towerAttack)
 	Vector2 mousePosition = GetMousePosition();
 
 	//UPDATES TOWER ATTACK RECTANGLE
-	towerAttack->rec.x = mousePosition.x - (towerAttack->rec.width/2);
-	towerAttack->rec.y = mousePosition.y - (towerAttack->rec.height/2);
+	towerAttack->rec.x = mousePosition.x - towerAttack->size/4;
+	towerAttack->rec.y = mousePosition.y - towerAttack->size/4;
 }
 
 void TurnAttackOn(TowerAttack *towerAttack)
