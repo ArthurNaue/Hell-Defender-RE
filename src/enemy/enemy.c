@@ -190,8 +190,8 @@ void CheckForEnemyDamage(TowerAttack *towerAttack)
 	{
 		if(CheckCollisionRecs(towerAttack->rec, enemiesList[i].rec) && towerAttack->isAttacking == 1 && towerAttack->cooldown<=0)
 		{
-			DamageEnemy(&enemiesList[i]);
 			PlayEnemyDamageSound();
+			DamageEnemy(&enemiesList[i]);
 			ResetAttackCooldown(towerAttack);
 
 			if(enemiesList[i].health<1){RemoveEnemy(i); IncreasePoints(1);}
@@ -210,8 +210,8 @@ void CheckForBossDamage(Enemy *boss, TowerAttack *towerAttack)
 {
 	if(CheckCollisionRecs(boss->rec, towerAttack->rec) && towerAttack->isAttacking==1 && towerAttack->cooldown<=0)
 	{
-		DamageEnemy(boss);
 		PlayEnemyDamageSound();
+		DamageEnemy(boss);
 		ResetAttackCooldown(towerAttack);
 
 		if(boss->health<1){DeleteBoss(boss); IncreasePoints(1);}
