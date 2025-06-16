@@ -42,9 +42,13 @@ int main(void)
 
 				UpdateMaxPointsText();
 
+				CreateFireDecoration();
+
 				BeginDrawing();
 
 				ClearBackground(PORANGE);
+
+				DrawFireDecorations();
 
 				DrawText(maxPointsText, 0, 0, 24, PDARKRED);
 	
@@ -60,7 +64,7 @@ int main(void)
 			}
 			case GAMEPLAY:
 			{
-				CreateFireDecoration();
+				DeleteFireDecorations();
 
 				CreateBoss(&boss);
 				MoveBoss(&boss);
@@ -70,7 +74,6 @@ int main(void)
 
 				if(IsKeyPressed(KEY_ESCAPE))
 				{
-					DeleteFireDecorations();
 					DeleteEnemies();
 					CheckAndUpdateMaxPoints();
 					TitleScreen();
@@ -82,7 +85,6 @@ int main(void)
 
 				ClearBackground(PORANGE);
 
-				DrawFireDecorations();
 
 				DrawTower(tower);
 				

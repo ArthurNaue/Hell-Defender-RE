@@ -7,7 +7,7 @@ void CreateFireDecoration(void)
 {
 	if(fireDecorationsList==NULL)
 	{
-		int numberOfFires = (rand() % 4) + 1;
+		int numberOfFires = (rand() % 15) + 1;
 
 		for(int i=0; i<numberOfFires; i++)
 		{

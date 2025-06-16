@@ -2,6 +2,7 @@
 
 #define RAYGUI_IMPLEMENTATION
 #include "raygui/raygui.h"
+#include "fire_decorations/fire_decorations.h"
 
 void InitButtonStyle(void)
 {
@@ -19,5 +20,5 @@ void InitButtonStyle(void)
 void DrawTitleScreenButtons(void)
 {
 	if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 50, 200, 100}, "PLAY")){GameplayScreen();}
-	if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 170, 200, 100}, "EXIT")){game=0;}
+	if(GuiButton((Rectangle){SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 + 170, 200, 100}, "EXIT")){DeleteFireDecorations(); game=0;}
 }
