@@ -6,7 +6,7 @@ Sound enemyDamage;
 void CreateSounds(void)
 {
 	backgroundMusic = LoadMusicStream("assets/sounds/background_music.wav");
-	enemyDamage = LoadSound("assets/sounds/enemyDamage.wav");
+	enemyDamage = LoadSound("assets/sounds/enemy_damage.wav");
 }
 
 void StartMusic(void)
@@ -17,6 +17,11 @@ void StartMusic(void)
 void UpdateMusic(void)
 {
 	UpdateMusicStream(backgroundMusic);
+}
+
+void PlayEnemyDamageSound(void)
+{
+	PlaySound(enemyDamage);
 }
 
 void UnloadSounds(void)

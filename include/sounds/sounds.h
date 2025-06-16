@@ -9,6 +9,7 @@ extern Sound enemyDamage;
 void CreateSounds(void);
 void StartMusic(void);
 void UpdateMusic(void);
+void PlayEnemyDamageSound(void);
 void UnloadSounds(void);
 
 #endif

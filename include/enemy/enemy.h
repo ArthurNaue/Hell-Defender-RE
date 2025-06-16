@@ -8,6 +8,7 @@
 #include "tower/tower_attack/tower_attack.h"
 #include "fire_decorations/fire_decorations.h"
 #include "color_palette/color_palette.h"
+#include "sounds/sounds.h"
 
 #define ENEMY_SIZE 64
 
